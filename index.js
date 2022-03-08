@@ -1,41 +1,16 @@
 const express = require('express');
-
+const { products } = require('./products')
+const {categories} = require('./categories')
+const faker = require('faker')
 const app = express();
 const port = 3000;
 
-const categories = [
-  {id:1, name:'Abarroteria'},
-  {id:2, name:'Electrodomesticos'},
-  {id:3, name:'Linea Blanca'},
-  {id:4, name:'Smartphones'},
-  {id:5, name:'Oficina'},
-]
-
-const products = [
+const users = [
   {
-    name: 'Iphone XII',
-    price: 8000.00,
-    category: categories[3].id
-  },
-  {
-    name: 'Xaomi Y9 Pro',
-    price: 4000.00,
-    category: categories[3].id
-  },
-  {
-    name: 'Iphone XII Max',
-    price: 12000.00,
-    category: categories[3].id
-  },
-  {
-    name: 'Resma de Papel Oficio',
-    price: 38.00,
-    category: categories[4].id
-  },
-  {
-    name: 'lapicero Bic',
-    price: 4.50,
-    category: categories[4].id
+    name: 'Kevin Alberto Palma Ralda',
+    username: 'kpalma',
+    email: 'kapalma05@gmail.com',
+    password: 'asdasdaq2131231as'
   },
 ]
 
@@ -60,11 +35,34 @@ app.get('/category/:id/products', (req, res) => {
   res.json(prod)
 });
 app.get('/products', (req, res) => {
-  res.json(products)
+  const prod = []
+  const { size } = req.query;
+  const limit = size || 10;
+  for (let i = 0; i < limit; i ++){
+    prod.push({
+      name: faker.commerce.productName(),
+      price: parseInt(faker.commerce.price()),
+      image: faker.image.imageUrl()
+    })
+  }
+  res.json(prod)
 });
+
 app.get('/products/:id', (req, res) => {
   const { id } = req.params;
   res.json(products[id])
+});
+app.get('/users', (req, res) => {
+  const { limit, offset } = req.query;
+  if (limit && offset) {
+    res.json({
+      limit,
+      offset,
+      users
+    })
+  } else {
+    res.json(users)
+  }
 });
 
 app.listen(port, () => {
