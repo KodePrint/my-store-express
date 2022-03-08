@@ -4,7 +4,7 @@ const { products } = require('./data/products')
 const {categories} = require('./data/categories')
 const app = express();
 const port = 3000;
-
+app.use(express.json());
 routerApi(app)
 
 // const users = [
