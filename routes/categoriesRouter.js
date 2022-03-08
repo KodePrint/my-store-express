@@ -1,75 +1,75 @@
 const express = require('express');
+const CategoriesService = require('../services/categoriesServices')
+
 const router = express.Router()
-const {categories} = require('../data/categories')
+const service = new CategoriesService();
 
 
 // GET
-router.get('/', (req, res) => {
-    res.json(categories)
+router.get('/', async (req, res) => {
+  const categories = await service.find();
+  res.status(200).json(categories)
 })
 
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
+  try {
     const { id } = req.params;
-    if (id > (categories.length)) {
-        res.status(404).json({
-          message:'not found'
-        })
-    } else {
-        category = categories.filter(categories => categories.id == id)
-        res.json(category)
-    }
+    const category = await service.findOne(id)
+    res.status(200).json(category)
+  } catch (error) {
+    res.status(404).json({
+      message:error.message
+    })
+  }
+    
 })
 // POST
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
+  try {
     const body = req.body;
-    res.status(201).json({
-      message: 'created',
-      data:body
+    const category = await service.create(body)
+    res.status(201).json(category)
+  } catch (error) {
+    res.status(400).json({
+      message: error.message
     })
+  }
   })
   // PATCH
-  router.patch('/:id', (req, res) => {
-    const { id } = req.params;
-    const body = req.body;
-    if (id > (categories.length)) {
+  router.patch('/:id', async (req, res) => {
+    try {
+      const { id } = req.params;
+      const body = req.body;
+      const category = await service.update(id, body)
+      res.status(200).json(category)
+    } catch (error) {
       res.status(404).json({
-        message:'not found'
-      })
-    } else {
-      res.status(200).json({
-        message: 'update',
-        data:body,
-        id,
+        message: error.message
       })
     }
   })
   // PUT
-  router.put('/:id', (req, res) => {
-    const { id } = req.params;
-    const body = req.body;
-    if (id > (categories.length)) {
+  router.put('/:id', async (req, res) => {
+    try {
+      const { id } = req.params;
+      const body = req.body;
+      const category = await service.update(id, body)
+      res.status(200).json(category)
+    } catch (error) {
       res.status(404).json({
-        message:'not found'
-      })
-    } else {
-      res.status(200).json({
-        message: 'update',
-        data:body,
-        id,
+        message: error.message
       })
     }
   })
   // DELETE
-  router.delete('/:id', (req, res) => {
-    const { id } = req.params;
-    if (id > (categories.length)) {
+  router.delete('/:id', async (req, res) => {
+    try {
+      const { id } = req.params;
+      const category = await service.delete(id)
+      res.status(200).json(category)
+    } catch (error) {
       res.status(404).json({
-        message:'not found'
-      })
-    } else {
-      res.status(200).json({
-        message: 'delete',
-        id,
+        message:error.message
       })
     }
   })

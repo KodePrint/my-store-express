@@ -1,85 +1,78 @@
 const express = require('express');
-const {users} = require('../data/users')
+const { json } = require('express/lib/response');
+const UsersService = require('../services/usersService')
 
-
-const router = express.Router()
+const router = express.Router();
+const service = new UsersService();
 
 // GET
-router.get('', (req, res) => {
-    res.json(users)
+router.get('', async (req, res) => {
+    const users = await service.find();
+    res.status(200).json(users)
 })
-// router.get('', (req, res) => {
-//     const {username, email} = req.query;
-//     console.log(username)
-//     console.log(email)
-//     const user = users.filter(users => users.email == email || users.username == username)
-//     res.json(user)
-// })
-router.get('/:id', (req, res) => {
-    const {id} = req.params
-    if (id > (users.length)) {
-        res.status(404).json({
-          message:'not found'
-        })
-    } else {
-        const user = users.filter(users => users.id == id)
-        res.status(200).json(user)
+
+router.get('/:id', async (req, res) => {
+    try {
+      const {id} = req.params
+      const user = await service.findOne(id)
+      res.status(200).json(user)
+    } catch (error) {
+      res.status(404).json({
+        message:error.message
+      })
     }
 })
 
 // POST
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
+  try {
     const body = req.body;
-    res.status(201).json({
-      message: 'created',
-      data:body
+    const user = await service.create(body)
+    res.status(201).json(user)
+  } catch (error) {
+    res.status(400).json({
+      message: error.message
     })
-  })
-  // PATCH
-  router.patch('/:id', (req, res) => {
+  }
+})
+
+// PATCH
+router.patch('/:id', async (req, res) => {
+  try {
     const { id } = req.params;
     const body = req.body;
-    if (id > (users.length)) {
-      res.status(404).json({
-        message:'not found'
-      })
-    } else {
-      res.status(200).json({
-        message: 'update',
-        data:body,
-        id,
-      })
-    }
-  })
-  // PUT
-  router.put('/:id', (req, res) => {
+    const user = await service.update(id, body)
+    res.status(200).json(user)
+  } catch (error) {
+    res.status(404).json({
+      message: error.message
+    })
+  }
+})
+// PUT
+router.put('/:id', async (req, res) => {
+  try {
     const { id } = req.params;
     const body = req.body;
-    if (id > (users.length)) {
-      res.status(404).json({
-        message:'not found'
-      })
-    } else {
-      res.status(200).json({
-        message: 'update',
-        data:body,
-        id,
-      })
-    }
-  })
-  // DELETE
-  router.delete('/:id', (req, res) => {
+    const user = await service.update(id, body)
+    res.status(200).json(user)
+  } catch (error) {
+    res.status(404).json({
+      message: error.message
+    })
+  }
+})
+// DELETE
+router.delete('/:id', async (req, res) => {
+  try {
     const { id } = req.params;
-    if (id > (users.length)) {
-      res.status(404).json({
-        message:'not found'
-      })
-    } else {
-      res.status(200).json({
-        message: 'delete',
-        id,
-      })
-    }
-  })
+    const user = await service.delete(id);
+    res.status(200).json(user)
+  } catch (error) {
+    res.status(404).json({
+      message:error.message
+    })
+  }
+})
 
 module.exports = router

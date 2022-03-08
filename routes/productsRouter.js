@@ -10,10 +10,6 @@ router.get('/', async (req, res) => {
     res.status(200).json(products)
   });
 
-router.get('/filter', (req, res) => {
-    res.send('Soy un filtro')
-})
-
 router.get('/:id', async (req, res) => {
   try {
     const { id } = req.params;
@@ -23,25 +19,24 @@ router.get('/:id', async (req, res) => {
     res.status(404).json({
       message: error.message
     })
-  }
-  
+  }  
 });
 
 // POST
 router.post('/', async (req, res) => {
   const body = req.body;
-  const product = service.create(body)
+  const product = await service.create(body)
   res.status(201).json({
     message: 'created',
     product:product
   })
 })
 // PATCH
-router.patch('/:id', (req, res) => {
+router.patch('/:id', async (req, res) => {
   try {
     const { id } = req.params;
     const body = req.body;
-    const product = service.update(id, body);
+    const product = await service.update(id, body);
     res.json(product)
   } catch (error) {
     res.status(404).json({
@@ -50,11 +45,11 @@ router.patch('/:id', (req, res) => {
   }
 })
 // PUT
-router.put('/:id', (req, res) => {
+router.put('/:id', async (req, res) => {
   try {
     const { id } = req.params;
     const body = req.body;
-    const product = service.update(id, body);
+    const product = await service.update(id, body);
     res.json(product)
   } catch (error) {
     res.status(404).json({
@@ -63,11 +58,11 @@ router.put('/:id', (req, res) => {
   }
 })
 // DELETE
-router.delete('/:id', (req, res) => {
+router.delete('/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const product = service.delete(id);
-    res.json(product)
+    const product = await service.delete(id);
+    res.status(200).json(product)
   } catch (error) {
     res.status(404).json({
       message:error.message

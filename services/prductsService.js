@@ -16,13 +16,16 @@ class ProductsService {
         this.products = this.products.concat(products)
     }
 
-    async create({name, price, image}) {
+    async create(body) {
         // Crea un nuevo producto
+        if (JSON.stringify(body) === '{}') {
+            throw new Error('Error the Product could not be created..!')
+        }
         const newProduct = {
             id: this.generateId(),
-            name,
-            price,
-            image
+            name: body.name,
+            price: body.price,
+            image: body.image
         }
         this.products.push(newProduct);
         return newProduct;
@@ -42,7 +45,7 @@ class ProductsService {
         // Busca un producto por us id
         const index = this.products.findIndex(products => products.id == id);
         if (index === -1){
-            throw new Error('Product not foud')
+            throw new Error('Product not foud..!')
         }
         const product = this.products[index];
         return product;
