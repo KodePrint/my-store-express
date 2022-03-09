@@ -45,11 +45,11 @@ class ProductsService {
 
     async findOne(id) {
         // Busca un producto por us id
-        const index = this.products.findIndex(products => products.id == id);
-        if (index === -1){
-            throw new Error('Product not foud..!')
+        const product = this.products.find(item => item.id == id);
+        console.log(product)
+        if (!product) {
+            throw boom.notFound('Product not found..!')
         }
-        const product = this.products[index];
         return product;
     }
 
