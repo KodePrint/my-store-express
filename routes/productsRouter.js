@@ -24,12 +24,18 @@ router.get('/:id', async (req, res) => {
 
 // POST
 router.post('/', async (req, res) => {
-  const body = req.body;
-  const product = await service.create(body)
-  res.status(201).json({
-    message: 'created',
-    product:product
-  })
+  try {
+    const body = req.body;
+    const product = await service.create(body)
+    res.status(201).json({
+      message: 'created',
+      product:product
+    })
+  } catch (error) {
+    res.status(400).json({
+      message: error.message
+    })
+  }
 })
 // PATCH
 router.patch('/:id', async (req, res) => {

@@ -73,8 +73,9 @@ class ProductsService {
         if (index === -1){
             throw new Error('Product not foud')
         }
+        const product = this.products[index];
         this.products.splice(index, 1);
-        return {message: `Producto con id: ${id} eliminado correctamente`}
+        return {message: `Producto: ${product.name} eliminado correctamente`}
     }
 
 }
