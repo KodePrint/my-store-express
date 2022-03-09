@@ -1,4 +1,5 @@
 const {products} = require('../data/products')
+const boom = require('@hapi/boom')
 
 class ProductsService {
 
@@ -19,7 +20,8 @@ class ProductsService {
     async create(body) {
         // Crea un nuevo producto
         if (JSON.stringify(body) === '{}') {
-            throw new Error('Error the Product could not be created..!')
+            throw boom.badRequest('Error the Product could not be created..!')
+            // throw new Error('Error the Product could not be created..!')
         }
         const newProduct = {
             id: this.generateId(),
@@ -56,7 +58,8 @@ class ProductsService {
         id = parseInt(id)
         const index = this.products.findIndex(products => products.id === id);
         if (index === -1){
-            throw new Error('Product not foud')
+            throw boom.notFound('Product not found..!')
+            // throw new Error('Product not foud')
         }
         const product = this.products[index];
         this.products[index] = {

@@ -1,11 +1,14 @@
 const express = require('express');
 const routerApi = require('./routes')
-const { products } = require('./data/products')
-const {categories} = require('./data/categories')
+const {logErrors, errorHandler} = require('./middlewares/errorHandler')
+
 const app = express();
 const port = 3000;
 app.use(express.json());
 routerApi(app)
+
+app.use(logErrors);
+app.use(errorHandler);
 
 // const users = [
 //   {
