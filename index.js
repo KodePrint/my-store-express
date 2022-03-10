@@ -13,12 +13,12 @@ swaggerDocument = require('./swagger.json')
 const whiteList = ['http://localhost:5500','http://127.0.0.1:5500']
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 app.use(express.json());
 // Cors
 const options = {
  origin: (origin, callback) => {
-   if(whiteList.includes(origin)) {
+   if(whiteList.includes(origin) || !origin) {
      callback(null, true)
    } else {
      callback(new Error('Error Forbidden'))
