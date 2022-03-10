@@ -1,58 +1,40 @@
 const express = require('express');
+const cors = require('cors')
 const routerApi = require('./routes')
 const {logErrors, errorHandler, boomErrorHandler } = require('./middlewares/errorHandler')
+const path = require('path')
+
+// Swagger
+const swaggerUI = require('swagger-ui-express');
+const swaggerJsDoc = require('swagger-jsdoc');
+swaggerDocument = require('./swagger.json')
+
+// Settings
+const whiteList = ['http://localhost:5500','http://127.0.0.1:5500']
 
 const app = express();
 const port = 3000;
 app.use(express.json());
+// Cors
+const options = {
+ origin: (origin, callback) => {
+   if(whiteList.includes(origin)) {
+     callback(null, true)
+   } else {
+     callback(new Error('Error Forbidden'))
+   }
+ } 
+}
+app.use(cors());
+
+// Routes
 routerApi(app)
 
+// Middlewares
 app.use(logErrors);
 app.use(boomErrorHandler);
 app.use(errorHandler);
-
-// const users = [
-//   {
-//     name: 'Kevin Alberto Palma Ralda',
-//     username: 'kpalma',
-//     email: 'kapalma05@gmail.com',
-//     password: 'asdasdaq2131231as'
-//   },
-// ]
-
-// app.get('/', (req, res) => {
-//   res.send('Hola Server en Express')
-// });
-
-// app.get('/nueva-ruta', (req, res) => {
-//   res.send('Soy un nuevo endpoint')
-// });
-// app.get('/home', (req, res) => {
-//   res.json({
-//     message: 'Bienvenido al Home'
-//   })
-// });
-// app.get('/categories', (req, res) => {
-//   res.json(categories)
-// });
-// app.get('/category/:id/products', (req, res) => {
-//   const { id } = req.params;
-//   prod = products.filter(products => products.category == id)
-//   res.json(prod)
-// });
-
-// app.get('/users', (req, res) => {
-//   const { limit, offset } = req.query;
-//   if (limit && offset) {
-//     res.json({
-//       limit,
-//       offset,
-//       users
-//     })
-//   } else {
-//     res.json(users)
-//   }
-// });
+app.use('/api/v1-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument))
 
 app.listen(port, () => {
   console.log('mi port' + port)

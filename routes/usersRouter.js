@@ -13,6 +13,7 @@ router.get('', async (req, res) => {
     res.status(200).json(users)
 })
 
+// GET a specific user
 router.get('/:id',
   validatorHandler(getUserScheme, 'params'),
   async (req, res, next) => {
@@ -27,7 +28,7 @@ router.get('/:id',
 )
 
 // POST
-router.post('/',
+router.post('',
   validatorHandler(createUserScheme, 'body'),
   async (req, res, next) => {
     try {

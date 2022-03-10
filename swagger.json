@@ -1,0 +1,71 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "My Store API",
+        "description": "This API you can create a CRUD",
+        "termsOfService": "http://example.com/terms/",
+        "contact": {
+          "name": "Contact whit API Support",
+          "url": "http://www.example.com/support",
+          "email": "support@example.com"
+        },
+        "license": {
+          "name": "Apache 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+          "url": "http://localhost:3000/api/v1",
+          "description": "Development server"
+        }
+    ],
+    "components": {
+        "schemas": {
+            "User": {
+                "type": "object",
+                "required": [
+                    "message",
+                    "code"
+                ],
+                "properties": {
+                    "id": {"type":"number"},
+                    "email": {"type":"string"},
+                    "name": {"type":"string"},
+                    "last_name": {"type":"string"},
+                    "image": {"type":"string"},
+                    "is_active": {"type":"boolean"},
+                    "password": {"type":"string"}
+                }
+            }
+        }
+    },
+    "paths":
+        {"/users": {
+            "get": {
+                "description": "Returns all users from the system",
+                "responses": {
+                    "200": {
+                        "description": " A list of users",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/User"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/":{
+            "post": {
+
+            }
+        }
+    }
+}
