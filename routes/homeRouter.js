@@ -3,11 +3,7 @@ const router = express.Router()
 
 const routes = [
     {
-        model: 'Products',
-        routes: {
-            list_products: '/products',
-            get_a_product: '/products/{id}',
-        }
+        Home: 'Documentacion',
     }
 ]
 

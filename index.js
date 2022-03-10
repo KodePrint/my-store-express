@@ -34,7 +34,7 @@ routerApi(app)
 app.use(logErrors);
 app.use(boomErrorHandler);
 app.use(errorHandler);
-app.use('/api/v1-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument))
+app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument))
 
 app.listen(port, () => {
   console.log('mi port' + port)
