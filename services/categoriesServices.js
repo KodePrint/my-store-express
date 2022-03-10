@@ -1,4 +1,6 @@
 const {categories} = require('../data/categories')
+const boom = require('@hapi/boom')
+
 
 class CategoriesService {
     constructor() {
@@ -18,7 +20,7 @@ class CategoriesService {
     async create(body) {
         // Crea una nueva categoria
         if (JSON.stringify(body) === '{}') {
-            throw new Error('Error the category could not be created..!')
+            throw boom.badRequest('Error the category could not be created..!')
         }
         const newCategorie = {
             id: this.generateId(),
@@ -38,7 +40,7 @@ class CategoriesService {
         // Busca una categoria por su id
         const index = this.categories.findIndex(item => item.id==id)
         if (index === -1) {
-            throw new Error('Category not found..!')
+            throw boom.notFound('Category not found..!')
         }  
         const category = this.categories[index]
         return category
@@ -48,7 +50,7 @@ class CategoriesService {
         // Actualiza una categoria
         const index = this.categories.findIndex(item => item.id==id)
         if (index === -1) {
-            throw new Error('Category not found..!')
+            throw boom.notFound('Category not found..!')
         }  
         const category = this.categories[index]
         this.categories[index] = {
@@ -62,7 +64,7 @@ class CategoriesService {
         // Elimina una categoria
         const index = this.categories.findIndex(item => item.id==id)
         if (index === -1) {
-            throw new Error('Category not found..!')
+            throw boom.notFound('Category not found..!')
         }  
         const category = this.categories[index]
         this.categories.splice(index, 1)

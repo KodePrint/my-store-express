@@ -1,5 +1,6 @@
 const { users } = require('../data/users')
 const bcryptjs = require('bcryptjs')
+const boom = require('@hapi/boom')
 
 class UsersService {
     constructor() {
@@ -19,7 +20,7 @@ class UsersService {
     async create(body) {
         // Crea un nuevo usuario
         if (JSON.stringify(body) === '{}') {
-            throw new Error('Error the User could not be created..!')
+            throw boom.badRequest('Error the User could not be created..!')
         }
         let password_hashed = await bcryptjs.hash(body.password, 8)
         const newUser = {
@@ -42,7 +43,7 @@ class UsersService {
         // Retorna un usuario especifico por id
         const index = this.users.findIndex(item => item.id == id);
         if (index === -1){
-            throw new Error('User not foud..!')
+            throw boom.notFound('User not foud..!')
         }
         const User = this.users[index];
         return User;
@@ -53,7 +54,7 @@ class UsersService {
         id = parseInt(id)
         const index = this.users.findIndex(item => item.id === id);
         if (index === -1){
-            throw new Error('User not foud')
+            throw boom.notFound('User not foud')
         }
         const product = this.users[index];
         this.users[index] = {
@@ -68,7 +69,7 @@ class UsersService {
         id = parseInt(id)
         const index = this.users.findIndex(item => item.id === id);
         if (index === -1){
-            throw new Error('User not foud')
+            throw boom.notFound('User not foud')
         }
         let user = this.users[index]
         this.users.splice(index, 1);

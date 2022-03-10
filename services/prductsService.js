@@ -74,7 +74,7 @@ class ProductsService {
         id = parseInt(id)
         const index = this.products.findIndex(products => products.id === id);
         if (index === -1){
-            throw new Error('Product not foud')
+            throw boom.notFound('Product not foud')
         }
         const product = this.products[index];
         this.products.splice(index, 1);
