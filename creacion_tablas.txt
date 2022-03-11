@@ -1,0 +1,45 @@
+Tabla Unidad de Medida
+
+CREATE TABLE measure_unit (
+	id serial PRIMARY KEY,
+	description VARCHAR(150) NOT NULL,
+	state BOOLEAN NOT NULL DEFAULT TRUE
+);
+
+Tabla Categorias
+
+CREATE TABLE category_product (
+	id serial PRIMARY KEY,
+	description VARCHAR(150) NOT NULL,
+	state BOOLEAN NOT NULL DEFAULT TRUE
+);
+
+Tabla Indicador
+
+CREATE TABLE indicator (
+	id serial PRIMARY KEY,
+	descount_value NUMERIC NOT NULL DEFAULT 0.00,
+	state BOOLEAN NOT NULL DEFAULT TRUE
+	category_product_id INTEGER,
+	CONSTRAINT FKcategory_product
+		FOREIGN KEY(category_product_id)
+			REFERENCES category_product(id)
+);
+
+Tabla Productos
+
+CREATE TABLE product (
+	id serial PRIMARY KEY,
+	name VARCHAR(150) UNIQUE NOT NULL,
+	decription VARCHAR(400) NOT NULL,
+	image VARCHAR(1024) NOT NULL,	
+	category_product_id INTEGER,
+	measure_unit_id INTEGER,
+	state BOOLEAN NOT NULL DEFAULT TRUE
+	CONSTRAINT FKcategory_product
+		FOREIGN KEY(category_product_id)
+			REFERENCES category_product(id),
+	CONSTRAINT FKmeasure_unit
+		FOREIGN KEY(measure_unit_id)
+			REFERENCES measure_unit(id)
+);
