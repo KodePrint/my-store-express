@@ -1,7 +1,8 @@
 const { users } = require('../data/users')
 const bcryptjs = require('bcryptjs')
 const boom = require('@hapi/boom')
-const getConnection = require('../libs/postgres')
+
+const { models } = require('../libs/sequelize')
 
 class UsersService {
     constructor() {
@@ -20,6 +21,7 @@ class UsersService {
 
     async create(body) {
         // Crea un nuevo usuario
+        const rta = await models.User.create(body)
         if (JSON.stringify(body) === '{}') {
             throw boom.badRequest('Error the User could not be created..!')
         }
@@ -37,9 +39,8 @@ class UsersService {
 
     async find() {
         // Regresa la lista de usuarios
-        const client = await getConnection();
-        const rta = await client.query('SELECT * FROM public.task')
-        return rta.rows
+        const rta = await models.User.findAll()
+        return rta
     }
 
     async findOne(id) {
