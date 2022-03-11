@@ -1,11 +1,14 @@
 const {products} = require('../data/products')
 const boom = require('@hapi/boom')
+const pool = require('../libs/postgresPool')
 
 class ProductsService {
 
     constructor() {
         this.products = [];
         this.generate();
+        this.pool = pool;
+        this.pool.on('error', (err) => console.error(err));
     }
 
     generateId() {
@@ -33,13 +36,16 @@ class ProductsService {
         return newProduct;
     }
 
-    find() {
+    async find() {
         // Busca los productos
-        return new Promise((resolve, rejecet) => {
-            setTimeout(() => {
-                resolve(this.products);
-            }, 5000)
-        })
+        const query = 'SELECT * FROM public.task';
+        const rta = await this.pool.query(query)
+        return rta.rows;
+        // return new Promise((resolve, rejecet) => {
+        //     setTimeout(() => {
+        //         resolve(this.products);
+        //     }, 5000)
+        // })
         // return this.products;
     }
 
