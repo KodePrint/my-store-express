@@ -1,5 +1,6 @@
 const boom = require('@hapi/boom')
 const pool = require('../libs/postgresPool');
+const sequelize = require('../libs/sequelize');
 const { query } = require('express');
 
 class MeasureUnitService {
@@ -11,8 +12,8 @@ class MeasureUnitService {
     // Retorna todas la unidades de medida
     async getAll() {
         const query = 'SELECT * FROM measure_unit'
-        const measure_unit = await this.pool.query(query)
-        return measure_unit.rows;
+        const [data] = await sequelize.query(query)
+        return data;
     }
 
     // Creacion de una unidad de medida
