@@ -1,6 +1,7 @@
 const { users } = require('../data/users')
 const bcryptjs = require('bcryptjs')
 const boom = require('@hapi/boom')
+const getConnection = require('../libs/postgres')
 
 class UsersService {
     constructor() {
@@ -36,7 +37,9 @@ class UsersService {
 
     async find() {
         // Regresa la lista de usuarios
-        return this.users
+        const client = await getConnection();
+        const rta = await client.query('SELECT * FROM public.task')
+        return rta.rows
     }
 
     async findOne(id) {
@@ -47,7 +50,7 @@ class UsersService {
         }
         const User = this.users[index];
         return User;
-    }   
+    }
 
     async update(id, changes) {
         // Actualiza un Usuario por su id
