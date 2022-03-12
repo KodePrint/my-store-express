@@ -1,11 +1,46 @@
-const {categories} = require('../data/categories')
-const boom = require('@hapi/boom')
+const boom = require('@hapi/boom');
 
-const { models } = require('../libs/sequelize')
+const { models } = require('../libs/sequelize');
 
 class CategoriesService {
+
+  constructor() {
+  }
+
+  // Retorna todas las categorias
   async getAll() {
-    return 'Search all categories'
+    const rta = await models.Category.findAll();
+    return rta;
+  }
+
+  // Retorna una categoria por pk
+  async getOne(id) {
+    const rta = await models.Category.findByPk(id);
+    if (!rta) {
+      throw boom.notFound(`Category with id:${id} not exits..!`)
+    }
+    return rta;
+  }
+
+  // Crea una categoria y la retorna
+  async create(body) {
+    const rta = await models.Category.create(body)
+    return rta;
+  }
+
+  // Actualiza una categoria y la retorna
+  async update(id, changes) {
+    const category = await this.getOne(id);
+    const rta = await category.update(changes);
+    return rta;
+  }
+
+  // Elimina una categoria de la base de datos
+  async delete(id) {
+    const category = await this.getOne(id);
+    const rta = category
+    await category.destroy();
+    return {message: `Category ${category.description} has ben delete successful..!`}
   }
 }
 
