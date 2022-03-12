@@ -1,17 +1,19 @@
 const Joi = require('joi');
 
 const id = Joi.number();
-const name = Joi.string().min(3).max(150);
-const description = Joi.string().min(3).max(256);
+const description = Joi.string().max(255);
+const state = Joi.boolean().default(true);
+const created = Joi.date();
+const updated = Joi.date();
+
 
 const createCategory = Joi.object({
-    name:name.required(),
-    description:description.optional(),
+    description:description.required().max(255),
 })
 
 const updateCategory = Joi.object({
-    name:name.optional(),
-    description:description.optional(),
+    description:description.required().max(255),
+    state:state.optional(),
 })
 
 const getCategory = Joi.object({

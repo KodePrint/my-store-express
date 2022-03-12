@@ -1,7 +1,10 @@
 const Joi = require('joi');
 
 const id = Joi.number();
-const description = Joi.string().min(3).max(256);
+const description = Joi.string().max(256);
+const state = Joi.boolean().default(true);
+const created_at = Joi.date();
+const updated_at = Joi.date();
 
 const createMeasureUnit = Joi.object({
     description:description.required(),
@@ -9,6 +12,7 @@ const createMeasureUnit = Joi.object({
 
 const updateMeasureUnit = Joi.object({
     description:description.optional(),
+    state:state.optional(),
 })
 
 const getMeasureUnit = Joi.object({
