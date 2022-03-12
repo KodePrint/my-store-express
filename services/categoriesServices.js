@@ -1,15 +1,13 @@
 const {categories} = require('../data/categories')
 const boom = require('@hapi/boom')
-const pool = require('../libs/postgresPool');
 const { query } = require('express');
 
+const { models } = require('../libs/sequelize')
 
 class CategoriesService {
     constructor() {
         this.categories = [];
         this.generate();
-        this.pool = pool;
-        this.pool.on('error', (err) => console.error(err))
     }
 
     async generateId() {
@@ -35,19 +33,17 @@ class CategoriesService {
         return newCategorie;
     }
 
-    async find() {
+    async getAll() {
         // Busca todas las categorias
-        const query = 'SELECT * FROM categories';
-        const rta = await pool.query(query)
-        return rta.rows;
+        const rta = await models.Category.findAll()
+        return rta;
 
     }
 
-    async findOne(id) {
+    async getOne(id) {
         // Busca una categoria por su id
-        const query = 'SELECT * FROM categories WHERE id = $1'
-        const rta = await pool.query(query, [id])
-        return rta.rows;
+        const rta = await models.Category.findByPk(id)
+        return rta;
         // const index = this.categories.findIndex(item => item.id==id)
         // if (index === -1) {
         //     throw boom.notFound('Category not found..!')

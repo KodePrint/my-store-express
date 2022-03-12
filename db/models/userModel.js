@@ -38,6 +38,26 @@ const UserSchema = {
         field: 'create_at',
         defaultValue: Sequelize.NOW
     },
+    isActive: {
+        allowNull: false,
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
+        field: 'is_active',
+
+    },
+    isAdmin: {
+        allowNull: false,
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+        field: 'is_admin',
+
+    },
+    isStaff: {
+        allowNull: false,
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+        field: 'is_staff',
+    },
     updatedAt: {
         allowNull:false,
         type: DataTypes.DATE,

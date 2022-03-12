@@ -1,5 +1,5 @@
 const express = require('express');
-const ProductsService = require('../services/prductsService')
+const ProductsService = require('../services/productsService')
 const validatorHandler = require('../middlewares/validatorHandler')
 const { createProductSchema, updateProductSchema, getProductSchema } = require('../schemas/productSchema')
 
@@ -8,7 +8,7 @@ const service = new ProductsService();
 
 // GET
 router.get('/', async (req, res) => {
-    const products = await service.find();
+    const products = await service.getAll();
     res.status(200).json(products)
   });
 
@@ -17,11 +17,11 @@ router.get('/:id',
   async (req, res, next) => {
     try {
       const { id } = req.params;
-      const product = await service.findOne(id)
-      res.status(200).json(product)  
+      const product = await service.getOne(id)
+      res.status(200).json(product)
     } catch (error) {
       next(error);
-    }  
+    }
   }
 );
 

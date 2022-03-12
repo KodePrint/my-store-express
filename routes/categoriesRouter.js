@@ -9,7 +9,7 @@ const service = new CategoriesService();
 
 // GET
 router.get('/', async (req, res, next) => {
-  const categories = await service.find();
+  const categories = await service.getAll();
   res.status(200).json(categories)
 })
 
@@ -18,11 +18,11 @@ router.get('/:id',
   async (req, res, next) => {
     try {
       const { id } = req.params;
-      const category = await service.findOne(id)
+      const category = await service.getOne(id)
       res.status(200).json(category)
     } catch (error) {
       next(error)
-    }   
+    }
   }
 )
 // POST

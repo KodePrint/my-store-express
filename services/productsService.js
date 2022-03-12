@@ -2,13 +2,14 @@ const {products} = require('../data/products')
 const boom = require('@hapi/boom')
 const pool = require('../libs/postgresPool')
 
+const { models } = require('../libs/sequelize')
+
+
 class ProductsService {
 
     constructor() {
         this.products = [];
         this.generate();
-        this.pool = pool;
-        this.pool.on('error', (err) => console.error(err));
     }
 
     generateId() {
@@ -36,27 +37,16 @@ class ProductsService {
         return newProduct;
     }
 
-    async find() {
+    async getAll() {
         // Busca los productos
-        const query = 'SELECT * FROM public.task';
-        const rta = await this.pool.query(query)
-        return rta.rows;
-        // return new Promise((resolve, rejecet) => {
-        //     setTimeout(() => {
-        //         resolve(this.products);
-        //     }, 5000)
-        // })
-        // return this.products;
+        const rta = await models.Product.findAll()
+        return rta;
     }
 
-    async findOne(id) {
+    async getOne(id) {
         // Busca un producto por us id
-        const product = this.products.find(item => item.id == id);
-        console.log(product)
-        if (!product) {
-            throw boom.notFound('Product not found..!')
-        }
-        return product;
+        const rta = await models.Product.findByPk(id)
+        return rta;
     }
 
     async update(id, changes) {

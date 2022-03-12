@@ -9,7 +9,7 @@ const service = new UsersService();
 
 // GET
 router.get('', async (req, res) => {
-    const users = await service.find();
+    const users = await service.getAll();
     res.status(200).json(users)
 })
 
@@ -19,7 +19,7 @@ router.get('/:id',
   async (req, res, next) => {
       try {
         const {id} = req.params
-        const user = await service.findOne(id)
+        const user = await service.getOne(id)
         res.status(200).json(user)
       } catch (error) {
         next(error)

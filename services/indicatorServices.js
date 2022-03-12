@@ -12,7 +12,7 @@ class MeasureUnitService {
 
     // Retorna todas la unidades de medida
     async getAll() {
-        const rta = await models.MeasureUnit.findAll()
+        const rta = await models.Indicator.findAll()
         return rta;
     }
 
@@ -27,7 +27,7 @@ class MeasureUnitService {
 
     // Retora la unidad de medida solicitada por id
     async getOne(id) {
-        const rta = await models.MeasureUnit.findByPk(id)
+        const rta = await models.Indicator.findByPk(id)
         return rta;
     }
 

@@ -37,20 +37,16 @@ class UsersService {
         return newUser;
     }
 
-    async find() {
+    async getAll() {
         // Regresa la lista de usuarios
         const rta = await models.User.findAll()
         return rta
     }
 
-    async findOne(id) {
+    async getOne(id) {
         // Retorna un usuario especifico por id
-        const index = this.users.findIndex(item => item.id == id);
-        if (index === -1){
-            throw boom.notFound('User not foud..!')
-        }
-        const User = this.users[index];
-        return User;
+        const rta = await models.User.findByPk(id)
+        return rta
     }
 
     async update(id, changes) {
