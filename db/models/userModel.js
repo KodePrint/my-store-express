@@ -32,12 +32,6 @@ const UserSchema = {
         type: DataTypes.STRING,
         min: 6
     },
-    createdAt: {
-        allowNull:false,
-        type: DataTypes.DATE,
-        field: 'create_at',
-        defaultValue: Sequelize.NOW
-    },
     isActive: {
         allowNull: false,
         type: DataTypes.BOOLEAN,
@@ -50,7 +44,6 @@ const UserSchema = {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
         field: 'is_admin',
-
     },
     isStaff: {
         allowNull: false,
@@ -58,10 +51,17 @@ const UserSchema = {
         defaultValue: false,
         field: 'is_staff',
     },
-    updatedAt: {
-        allowNull:false,
+    created: {
+        allowNull:true,
         type: DataTypes.DATE,
-        field: 'update_at',
+        field: 'created',
+        defaultValue: Sequelize.NOW
+    },
+    updated: {
+        allowNull:true,
+        type: DataTypes.DATE,
+        field: 'updated',
+        defaultValue: Sequelize.NOW
     }
 }
 

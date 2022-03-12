@@ -1,6 +1,6 @@
 const {Model, DataTypes, Sequelize} = require('sequelize')
 
-const INDICATOR_TABLE = 'indicator'; // Nombre de la tabla
+const INDICATOR_TABLE = 'indicators'; // Nombre de la tabla
 
 const IndicatorSchema = {
     id: {
@@ -11,29 +11,25 @@ const IndicatorSchema = {
     },
     descount: {
         allowNull:false,
-        type: DataTypes.DECIMAL(15, 2),
+        type: DataTypes.INTEGER,
     },
-    // idCategory: {
-    //     allowNull: false,
-    //     type: DataTypes.INTEGER,
-    //     field: 'Id_category',
-    // },
     state: {
         allowNull: false,
         type: DataTypes.BOOLEAN,
         defaultValue: true,
-        field: 'is_active',
+        field: 'state',
     },
-    createdAt: {
-        allowNull:false,
+    created: {
+        allowNull:true,
         type: DataTypes.DATE,
-        field: 'create_at',
+        field: 'created',
         defaultValue: Sequelize.NOW
     },
-    updatedAt: {
-        allowNull:false,
+    updated: {
+        allowNull:true,
         type: DataTypes.DATE,
-        field: 'update_at',
+        field: 'updated',
+        defaultValue: Sequelize.NOW
     }
 }
 

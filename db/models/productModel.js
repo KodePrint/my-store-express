@@ -1,6 +1,6 @@
 const {Model, DataTypes, Sequelize} = require('sequelize')
 
-const PRODUCT_TABLE = 'product'; // Nombre de la tabla
+const PRODUCT_TABLE = 'products'; // Nombre de la tabla
 
 const ProductSchema = {
     id: {
@@ -21,28 +21,33 @@ const ProductSchema = {
         unique: true,
         max: 255
     },
+    price: {
+        allowNull:false,
+        type: DataTypes.DECIMAL(15, 2),
+    },
     image: {
       allowNull:false,
       type: DataTypes.STRING
   },
-    state: {
-        allowNull: false,
-        type: DataTypes.BOOLEAN,
-        defaultValue: true,
-        field: 'is_active',
+  state: {
+      allowNull: false,
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
+      field: 'state',
 
-    },
-    createdAt: {
-        allowNull:false,
-        type: DataTypes.DATE,
-        field: 'create_at',
-        defaultValue: Sequelize.NOW
-    },
-    updatedAt: {
-        allowNull:false,
-        type: DataTypes.DATE,
-        field: 'update_at',
-    }
+  },
+  created: {
+      allowNull:true,
+      type: DataTypes.DATE,
+      field: 'created',
+      defaultValue: Sequelize.NOW
+  },
+  updated: {
+      allowNull:true,
+      type: DataTypes.DATE,
+      field: 'updated',
+      defaultValue: Sequelize.NOW
+  }
 }
 
 class Product extends Model {

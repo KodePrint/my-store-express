@@ -19,19 +19,20 @@ const MeasureUnitSchema = {
         allowNull: false,
         type: DataTypes.BOOLEAN,
         defaultValue: true,
-        field: 'is_active',
+        field: 'state',
 
     },
-    createdAt: {
-        allowNull:false,
+    created: {
+        allowNull:true,
         type: DataTypes.DATE,
-        field: 'create_at',
+        field: 'created',
         defaultValue: Sequelize.NOW
     },
-    updatedAt: {
-        allowNull:false,
+    updated: {
+        allowNull:true,
         type: DataTypes.DATE,
-        field: 'update_at',
+        field: 'updated',
+        defaultValue: Sequelize.NOW
     }
 }
 
