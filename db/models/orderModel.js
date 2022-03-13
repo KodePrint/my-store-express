@@ -1,5 +1,7 @@
 const { Model, DataTypes, Sequelize } = require('sequelize')
 
+const {USER_TABLE} = require('./userModel')
+
 const ORDER_TABLE = 'orders'
 
 const OrderSchema = {
@@ -7,14 +9,20 @@ const OrderSchema = {
     allowNull: false,
     autoIncrement: true,
     primaryKey:true,
-    type: DataTypes.INTEGER
+    type: DataTypes.UUID,
+    set(value) {
+      const customer = getDataValue('customerId');
+      const date = getDataValue('created');
+      const primaryKey = (value+'-'+customer+'-'+date);
+      this.setDataValue('id', primaryKey);
+    },
   },
   customerId: {
     field: 'customer_id',
     type: DataTypes.INTEGER,
     allowNull: true,
     references: {
-      model: CATEGORY_TABLE,
+      model: USER_TABLE,
       key: 'id'
     },
     onDelete: 'SET NULL',
