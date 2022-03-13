@@ -32,12 +32,16 @@ const UserSchema = {
         type: DataTypes.STRING,
         min: 6
     },
+    role: {
+      allowNull: false,
+      type: DataTypes.STRING,
+      defaultValue: 'customer',
+    },
     isActive: {
         allowNull: false,
         type: DataTypes.BOOLEAN,
         defaultValue: true,
         field: 'is_active',
-
     },
     isAdmin: {
         allowNull: false,

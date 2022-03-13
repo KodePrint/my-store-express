@@ -1,81 +1,53 @@
-const { users } = require('../data/users')
-const bcryptjs = require('bcryptjs')
+const bcrypt = require('bcryptjs')
 const boom = require('@hapi/boom')
 
 const { models } = require('../libs/sequelize')
 
 class UsersService {
-    constructor() {
-        this.users = [];
-        this.generate();
-    }
 
-    generateId() {
-        // Genera in nuevo id para el producto segun el largo del arreglo
-        return this.users.length + 1
-    }
-    generate() {
-        // Genera el arreglo de productos dentro de servicios trayendo del arreglo productos en data
-        this.users = this.users.concat(users)
-    }
+  // Crea un nuevo usuario y lo retorna
+  async create(body) {
+    let password_hashed = await bcrypt.hash(body.password, 8)
+    // bcrypt.compare(body.password, password_hashed)
+    //   .then((res) => {
+    //     console.log(true)
+    //   })
+    body.password = password_hashed
+    const rta = await models.User.create(body);
+    return rta;
+  }
 
-    async create(body) {
-        // Crea un nuevo usuario
-        const rta = await models.User.create(body)
-        if (JSON.stringify(body) === '{}') {
-            throw boom.badRequest('Error the User could not be created..!')
-        }
-        let password_hashed = await bcryptjs.hash(body.password, 8)
-        const newUser = {
-            id: this.generateId(),
-            name: body.name,
-            username: body.username,
-            email: body.email,
-            password: password_hashed
-        }
-        this.users.push(newUser);
-        return newUser;
-    }
+  // Retorna el listado de todos los usuarios de la base de datos
+  async getAll() {
+    const rta = await models.User.findAll()
+    return rta
+  }
 
-    async getAll() {
-        // Regresa la lista de usuarios
-        const rta = await models.User.findAll()
-        return rta
+  // Retorna un usuario por su primaryKey
+  async getOne(id) {
+    const rta = await models.User.findByPk(id)
+    if (!rta) {
+      throw boom.notFound(`User with id:${id} not exits..!`)
     }
+    return rta
+  }
 
-    async getOne(id) {
-        // Retorna un usuario especifico por id
-        const rta = await models.User.findByPk(id)
-        return rta
-    }
+  // Obtiene un usuario por su primarykey, acutaliza sus campos y lo retorna
+  async update(id, changes) {
+    const user = await this.getOne(id);
+    const rta = await user.update(changes);
+    return rta;
+  }
 
-    async update(id, changes) {
-        // Actualiza un Usuario por su id
-        id = parseInt(id)
-        const index = this.users.findIndex(item => item.id === id);
-        if (index === -1){
-            throw boom.notFound('User not foud')
-        }
-        const product = this.users[index];
-        this.users[index] = {
-            ...product,
-            ...changes
-        };
-        return this.users[index];
-    }
-
-    async delete(id) {
-        // Borra un producto de la lista
-        id = parseInt(id)
-        const index = this.users.findIndex(item => item.id === id);
-        if (index === -1){
-            throw boom.notFound('User not foud')
-        }
-        let user = this.users[index]
-        this.users.splice(index, 1);
-        return {message: `Usuario: ${user.username} eliminado correctamente`}
-    }
-
+  // Obtiene un usuario por primaryKey y lo elimina de la base de datos
+  async delete(id) {
+    const user = await this.getOne(id);
+    let email = await user.getDataValue('email')
+    await user.destroy();
+    return {
+      message: `User with email: ${email} has ben deleted successfull..!`
+    };
+  }
 }
 
 module.exports = UsersService;

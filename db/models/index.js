@@ -5,11 +5,15 @@ const {ProductSchema, Product} = require('./productModel');
 const { CategorySchema, Category } = require('./categoryModel');
 
 function setUpModels (sequelize) {
-    User.init(UserSchema, User.config(sequelize)),
-    MeasureUnit.init(MeasureUnitSchema, MeasureUnit.config(sequelize)),
-    Category.init(CategorySchema, Category.config(sequelize)),
-    Indicator.init(IndicatorSchema, Indicator.config(sequelize)),
-    Product.init(ProductSchema, Product.config(sequelize))
+    User.init(UserSchema, User.config(sequelize));
+    MeasureUnit.init(MeasureUnitSchema, MeasureUnit.config(sequelize));
+    Category.init(CategorySchema, Category.config(sequelize));
+    Indicator.init(IndicatorSchema, Indicator.config(sequelize));
+    Product.init(ProductSchema, Product.config(sequelize));
+    // associate
+    MeasureUnit.associate(sequelize.models);
+    Category.associate(sequelize.models);
+    Product.associate(sequelize.models);
 }
 
 module.exports = setUpModels;

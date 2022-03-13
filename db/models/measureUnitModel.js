@@ -37,8 +37,9 @@ const MeasureUnitSchema = {
 }
 
 class MeasureUnit extends Model {
-    static associate() {
-        // associate
+    static associate(models) {
+      // associate
+
     }
 
     static config(sequelize) {
