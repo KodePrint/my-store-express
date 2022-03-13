@@ -13,7 +13,10 @@ const MeasureUnitSchema = {
         allowNull:false,
         type: DataTypes.STRING,
         unique: true,
-        max: 255
+        max: 255,
+        set(value) {
+          this.setDataValue('description', value.toLowerCase())
+        }
     },
     state: {
         allowNull: false,
@@ -39,7 +42,10 @@ const MeasureUnitSchema = {
 class MeasureUnit extends Model {
     static associate(models) {
       // associate
-
+      this.hasMany(models.Product, {
+        as: 'products',
+        foreignKey: 'measureUnitId'
+      });
     }
 
     static config(sequelize) {

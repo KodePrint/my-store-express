@@ -9,38 +9,55 @@ class CategoriesService {
 
   // Retorna todas las categorias
   async getAll() {
-    const rta = await models.Category.findAll();
-    return rta;
+    const categories = await models.Category.findAll({
+      attributes: ['id', 'description',],
+    });
+    return categories;
   }
 
   // Retorna una categoria por pk
   async getOne(id) {
-    const rta = await models.Category.findByPk(id);
-    if (!rta) {
+    const category = await models.Category.findByPk(id, {
+      attributes: ['id', 'description',],
+      include: ['products']
+    });
+    if (!category) {
       throw boom.notFound(`Category with id:${id} not exits..!`)
     }
-    return rta;
+    return category;
   }
 
   // Crea una categoria y la retorna
   async create(body) {
-    const rta = await models.Category.create(body)
-    return rta;
+    const newCategory = await models.Category.create(body)
+    return newCategory;
   }
 
   // Actualiza una categoria y la retorna
   async update(id, changes) {
     const category = await this.getOne(id);
-    const rta = await category.update(changes);
-    return rta;
+    const updateCategory = await category.update(changes);
+    return updateCategory;
+  }
+
+  // Cambia el estado a falso para persistencia de informacion
+  async partialDelete(id) {
+    const category = await this.getOne(id);
+    category.update({'state': false})
+    let description = await category.getDataValue('description')
+    return {
+      message: `Category with description: ${description} has ben deleted of the app successfull..!`
+    };
   }
 
   // Elimina una categoria de la base de datos
   async delete(id) {
     const category = await this.getOne(id);
-    const rta = category
+    let description = await category.getDataValue('description')
     await category.destroy();
-    return {message: `Category ${category.description} has ben delete successful..!`}
+    return {
+      message: `Category with description: ${description} has ben deleted successfull..!`
+    };
   }
 }
 

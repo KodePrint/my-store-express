@@ -13,7 +13,10 @@ const CategorySchema = {
       allowNull:false,
       type: DataTypes.STRING,
       unique: true,
-      max: 255
+      max: 255,
+      set(value) {
+        this.setDataValue('description', value.toLowerCase())
+      }
   },
   state: {
       allowNull: false,

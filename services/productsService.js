@@ -7,45 +7,27 @@ const { models } = require('../libs/sequelize')
 
 class ProductsService {
 
-    constructor() {
-        this.products = [];
-        this.generate();
-    }
-
-    generateId() {
-        // Genera in nuevo id para el producto segun el largo del arreglo
-        return this.products.length + 1
-    }
-    generate() {
-        // Genera el arreglo de productos dentro de servicios trayendo del arreglo productos en data
-        this.products = this.products.concat(products)
-    }
-
-    async create(body) {
-        // Crea un nuevo producto
-        if (JSON.stringify(body) === '{}') {
-            throw boom.badRequest('Error the Product could not be created..!')
-            // throw new Error('Error the Product could not be created..!')
-        }
-        const newProduct = {
-            id: this.generateId(),
-            name: body.name,
-            price: body.price,
-            image: body.image
-        }
-        this.products.push(newProduct);
-        return newProduct;
-    }
+  // Crea un nuevo Producto y lo retorna
+  async create(body) {
+    const product = await models.Product.create(body);
+    return product;
+  }
 
     async getAll() {
         // Busca los productos
-        const rta = await models.Product.findAll()
+        const rta = await models.Product.findAll({
+          attributes: ['id', 'name','description','image','price'],
+          include:['category', 'measure_unit']
+        })
         return rta;
     }
 
     async getOne(id) {
         // Busca un producto por us id
-        const rta = await models.Product.findByPk(id)
+        const rta = await models.Product.findByPk(id, {
+          attributes: ['id', 'name','description','image','price'],
+          include:['category', 'measure_unit']
+        })
         return rta;
     }
 

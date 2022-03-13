@@ -15,13 +15,19 @@ const ProductSchema = {
       allowNull:false,
       type: DataTypes.STRING,
       unique: true,
-      max: 125
+      max: 125,
+      set(value) {
+        this.setDataValue('name', value.toLowerCase())
+      }
   },
   description: {
       allowNull:false,
       type: DataTypes.STRING,
       unique: true,
-      max: 255
+      max: 255,
+      set(value) {
+        this.setDataValue('description', value.toLowerCase())
+      }
   },
   price: {
       allowNull:false,
@@ -36,6 +42,26 @@ const ProductSchema = {
       type: DataTypes.BOOLEAN,
       defaultValue: true,
       field: 'state',
+  },
+  measureUnitId: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    references: {
+      model: MEASURE_UNIT_TABLE,
+      key: 'id'
+    },
+    onDelete: 'SET NULL',
+    onUpdate: 'CASCADE'
+  },
+  categoryId: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    references: {
+      model: CATEGORY_TABLE,
+      key: 'id'
+    },
+    onDelete: 'SET NULL',
+    onUpdate: 'CASCADE'
   },
   created: {
       allowNull:true,
@@ -54,7 +80,8 @@ const ProductSchema = {
 class Product extends Model {
     static associate(models) {
         // associate
-        // this.belongsTo(models.Category, {as: 'category'});
+        this.belongsTo(models.Category, {as: 'category'});
+        this.belongsTo(models.MeasureUnit, {as: 'measure_unit'});
     }
 
     static config(sequelize) {

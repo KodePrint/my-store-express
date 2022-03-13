@@ -7,46 +7,54 @@ const { models } = require('../libs/sequelize')
 
 
 class MeasureUnitService {
-    constructor() {
-    }
 
-    // Retorna todas la unidades de medida
-    async getAll() {
-        const rta = await models.MeasureUnit.findAll()
-        return rta;
-    }
+  // Retorna todas la unidades de medida
+  async getAll() {
+      const measures = await models.MeasureUnit.findAll()
+      return measures;
+  }
 
-    // Creacion de una unidad de medida
-    async create(data) {
-        let { description } = data
-        const values = [description.toLowerCase()]
-        const query = 'INSERT INTO measure_unit (description) VALUES ($1)'
-        const measuer_unit = await this.pool.query(query, values)
-        return measuer_unit.rows;
-    }
+  // Creacion de una unidad de medida y la retorna
+  async create(data) {
+    const newMeasure = await models.MeasureUnit.create(data);
+    return newMeasure;
+  }
 
-    // Retora la unidad de medida solicitada por id
-    async getOne(id) {
-        const rta = await models.MeasureUnit.findByPk(id)
-        return rta;
-    }
+  // Retora la unidad de medida solicitada por id
+  async getOne(id) {
+      const measure = await models.MeasureUnit.findByPk(id)
+      if (!measure) {
+        throw boom.notFound(`Measure Unit with id:${id} not exits..!`)
+      }
+      return measure;
+  }
 
-    // Cambia el estado a falso para persistencia de informacion
-    async partialDelete(id) {
-        let measuer_unit = await this.getOne(id)
-        const query = `UPDATE measure_unit SET state = false WHERE id = ${id}`
-        await this.pool.query(query)
-        let updated_measuer_unit = await this.getOne(id)
-        return [{message: `The measure unit ${measuer_unit[0].description} has ben partial deleted..!`}, updated_measuer_unit[0]]
-    }
+  // Actualiza y retora la unidad de medida solicitada por id
+  async update(id, changes) {
+    const measure = await this.getOne(id);
+    const updateMeasure = await measure.update(changes);
+    return updateMeasure;
+  }
 
-    // Borrar de base de datos una unidad de medida
-    async delete(id) {
-        let measuer_unit = await this.getOne(id)
-        const query = 'DELETE FROM measure_unit WHERE id = $1';
-        await this.pool.query(query, [measuer_unit[0].id])
-        return {message: `Measure Unit ${measuer_unit[0].description} has ben succesfully deleted..!`}
-    }
+  // Cambia el estado a falso para persistencia de informacion
+  async partialDelete(id) {
+    const measure = await this.getOne(id);
+    measure.setAttributes('state', false)
+    let description = await measure.getDataValue('description')
+    return {
+      message: `Measure Unit with description: ${description} has ben deleted of the app successfull..!`
+    };
+  }
+
+  // Elimina una Unidad de Medida de la base de datos
+  async delete(id) {
+    const measure = await this.getOne(id);
+    let description = await measure.getDataValue('description')
+    await measure.destroy();
+    return {
+      message: `Measure Unit with description: ${description} has ben deleted successfull..!`
+    };
+  }
 }
 
 module.exports = MeasureUnitService
