@@ -17,7 +17,16 @@ class ProductsService {
         // Busca los productos
         const rta = await models.Product.findAll({
           attributes: ['id', 'name','description','image','price'],
-          include:['category', 'measure_unit']
+          include: [
+            {
+              association: 'measure_unit',
+              attributes: ['description',]
+            },
+            {
+              association: 'category',
+              attributes: ['description',]
+            },
+          ]
         })
         return rta;
     }
@@ -26,7 +35,16 @@ class ProductsService {
         // Busca un producto por us id
         const rta = await models.Product.findByPk(id, {
           attributes: ['id', 'name','description','image','price'],
-          include:['category', 'measure_unit']
+          include: [
+            {
+              association: 'measure_unit',
+              attributes: ['description',]
+            },
+            {
+              association: 'category',
+              attributes: ['description',]
+            },
+          ]
         })
         return rta;
     }

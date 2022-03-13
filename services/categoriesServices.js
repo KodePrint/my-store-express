@@ -19,7 +19,10 @@ class CategoriesService {
   async getOne(id) {
     const category = await models.Category.findByPk(id, {
       attributes: ['id', 'description',],
-      include: ['products']
+      include: [{
+        association: 'products',
+        attributes: ['id', 'name','description','image','price']
+      }]
     });
     if (!category) {
       throw boom.notFound(`Category with id:${id} not exits..!`)
