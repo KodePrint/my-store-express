@@ -2,7 +2,7 @@ const express = require('express');
 const { json } = require('express/lib/response');
 const CustomersService = require('../services/customerService')
 const validatorHandler = require('../middlewares/validatorHandler')
-const {createUserScheme, updateUserScheme, getUserScheme} = require('../schemas/userSchema')
+const {createCustomerSchema, updateCustomerSchema, getCustomerSchema} = require('../schemas/customerSchema')
 
 const router = express.Router();
 const service = new CustomersService();
@@ -10,12 +10,12 @@ const service = new CustomersService();
 // GET
 router.get('', async (req, res) => {
     const customers = await service.getAll();
-    res.status(200).json(users)
+    res.status(200).json(customers)
 })
 
 // GET a specific user
 router.get('/:id',
-  validatorHandler(getUserScheme, 'params'),
+  validatorHandler(getCustomerSchema, 'params'),
   async (req, res, next) => {
       try {
         const {id} = req.params
@@ -29,7 +29,7 @@ router.get('/:id',
 
 // POST
 router.post('',
-  validatorHandler(createUserScheme, 'body'),
+  validatorHandler(createCustomerSchema, 'body'),
   async (req, res, next) => {
     try {
       const body = req.body;
@@ -43,8 +43,8 @@ router.post('',
 
 // PATCH
 router.patch('/:id',
-  validatorHandler(getUserScheme, 'params'),
-  validatorHandler(updateUserScheme, 'body'),
+  validatorHandler(getCustomerSchema, 'params'),
+  validatorHandler(updateCustomerSchema, 'body'),
   async (req, res, next) => {
     try {
       const { id } = req.params;
@@ -58,8 +58,8 @@ router.patch('/:id',
 )
 // PUT
 router.put('/:id',
-  validatorHandler(getUserScheme, 'params'),
-  validatorHandler(updateUserScheme, 'body'),
+  validatorHandler(getCustomerSchema, 'params'),
+  validatorHandler(updateCustomerSchema, 'body'),
   async (req, res, next) => {
     try {
       const { id } = req.params;
@@ -73,7 +73,7 @@ router.put('/:id',
 )
 // DELETE
 router.delete('/:id',
-  validatorHandler(getUserScheme, 'params'),
+  validatorHandler(getCustomerSchema, 'params'),
   async (req, res, next) => {
     try {
       const { id } = req.params;

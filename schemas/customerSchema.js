@@ -12,18 +12,18 @@ const state = Joi.boolean();
 const timestamp = +new Date();
 
 
-const createUserScheme = Joi.object({
-  email: email.require(),
-  name: name.require(),
-  last_name: last_name.require(),
-  image: image.require(),
-  phone: phone.require(),
-  address1: address1.require(),
-  address2: address2.require(),
-  state: state.require(),
+const createCustomerScheme = Joi.object({
+  email: email.required(),
+  name: name.required(),
+  last_name: last_name.required(),
+  image: image.required(),
+  phone: phone.required(),
+  address1: address1.required(),
+  address2: address2.required(),
+  state: state.required(),
 })
 
-const updateUserScheme = Joi.object({
+const updateCustomerScheme = Joi.object({
   email: email.optional(),
   name: name.optional(),
   last_name: last_name.optional(),
@@ -35,6 +35,6 @@ const updateUserScheme = Joi.object({
   timestamp: timestamp
 })
 
-const getUserScheme = Joi.object({
+const getCustomerScheme = Joi.object({
   id: id.required(),
 })

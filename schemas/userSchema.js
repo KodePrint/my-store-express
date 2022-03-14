@@ -6,7 +6,7 @@ const role = Joi.string();
 const is_active = Joi.boolean();
 const is_admin = Joi.boolean();
 const is_staff = Joi.boolean();
-const userId = Joi.number();
+const customerId = Joi.number();
 const timestamp = +new Date();
 
 const createUserScheme = Joi.object({
@@ -14,7 +14,7 @@ const createUserScheme = Joi.object({
     role:role.required(),
     is_staff: is_staff.optional(),
     is_admin: is_admin.optional(),
-    userId: userId.required()
+    customerId: customerId.required()
 })
 
 const updateUserScheme = Joi.object({
@@ -23,7 +23,7 @@ const updateUserScheme = Joi.object({
   is_active: is_active.optional(),
   is_staff: is_staff.optional(),
   is_admin: is_admin.optional(),
-  userId: userId.required(),
+  customerId: customerId.required(),
   updated: timestamp
 })
 

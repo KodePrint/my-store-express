@@ -38,16 +38,6 @@ const UserSchema = {
     defaultValue: false,
     field: 'is_staff',
   },
-  userId: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references: {
-      model: CUSTOMER_TABLE,
-      key: 'id'
-    },
-    onDelete: 'SET NULL',
-    onUpdate: 'CASCADE'
-  },
   created: {
     allowNull:true,
     type: DataTypes.DATE,
@@ -62,19 +52,18 @@ const UserSchema = {
 }
 
 class User extends Model {
-    static associate(models) {
-        // associate
-        this.hasOne(models.Customer, {as: 'customer'})
-    }
+  static associate(models) {
+    // associate
+  }
 
-    static config(sequelize) {
-        return {
-            sequelize,
-            tableName: USER_TABLE,
-            modelName: 'User',
-            timestamps: false
-        }
-    }
+  static config(sequelize) {
+      return {
+          sequelize,
+          tableName: USER_TABLE,
+          modelName: 'User',
+          timestamps: false
+      }
+  }
 }
 
 module.exports = { USER_TABLE, UserSchema, User}

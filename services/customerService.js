@@ -13,9 +13,8 @@ class CustomersService {
 
   // Retorna el listado de todos los usuarios de la base de datos
   async getAll() {
-    const customers = await models.Customer.findAll({
-      include: ['user']
-    })
+    console.log(models.Customer.getAttributes())
+    const customers = await models.Customer.findAll()
     return customers
   }
 

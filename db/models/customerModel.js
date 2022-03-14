@@ -1,6 +1,6 @@
 const {Model, DataTypes, Sequelize} = require('sequelize')
 
-const CUSTOMER_TABLE = 'custmoers'; // Nombre de la tabla
+const CUSTOMER_TABLE = 'customers'; // Nombre de la tabla
 
 const CustomerSchema = {
   id: {
@@ -74,7 +74,6 @@ const CustomerSchema = {
 class Customer extends Model {
   static associate(models) {
       // associate
-      this.belongsTo(models.User, {as: 'user', foreignKey: 'userId'})
   }
 
   static config(sequelize) {
