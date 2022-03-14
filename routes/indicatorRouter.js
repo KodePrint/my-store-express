@@ -1,5 +1,5 @@
 const express = require('express');
-const MeasureUnitService = require('../services/indicatorServices')
+const MeasureUnitService = require('../services/indicatorService')
 const validatorHandler = require('../middlewares/validatorHandler')
 const { createIndicator, updateIndicator, getIndicator } = require('../schemas/indicatorSchema');
 

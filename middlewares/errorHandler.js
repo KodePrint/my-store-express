@@ -1,26 +1,24 @@
-const { ValidationError, DatabaseError } = require('sequelize');
+const { ValidationError, ConnectionError } = require('sequelize');
 const boom = require('@hapi/boom');
 
 function logErrors(err, req, res, next) {
-    console.log('logErrors')
-    console.error(err);
     next(err);
 }
 
 function errorHandler(err, req, res, next) {
-    console.log('errorHandler')
     res.status(500).json({
+        errorName: err.name,
         message:err.message,
-        stack:err.stack
-    })
+        stack:err.stack,
+    });
 }
 
 function boomErrorHandler(err, req, res, next) {
-    if (err.isBoom) {
-        const { output } = err;
-        res.status(output.statusCode).json(output.payload)
-    }
-    next(err);
+  if (err.isBoom) {
+    const { output } = err;
+    return res.status(output.statusCode).json(output.payload)
+  }
+  next(err);
 }
 
 function ormErrorHandler(err, req, res, next) {
@@ -34,15 +32,5 @@ function ormErrorHandler(err, req, res, next) {
   next(err);
 }
 
-function dbOrmErrorHandler(err, req, res, next) {
-  if (err instanceof DatabaseError) {
-    res.status(500).json({
-      statusCode: 500,
-      message: err.name,
-      errors:err.errors
-    })
-  }
-  next(err)
-}
 
-module.exports = {logErrors, errorHandler, boomErrorHandler, ormErrorHandler, dbOrmErrorHandler }
+module.exports = {logErrors, errorHandler, boomErrorHandler, ormErrorHandler }

@@ -10,6 +10,11 @@ const UserSchema = {
     primaryKey:true,
     type: DataTypes.INTEGER
   },
+  email: {
+    allowNull:false,
+    type: DataTypes.STRING,
+    unique: true,
+  },
   password: {
     allowNull: false,
     type: DataTypes.STRING,
@@ -54,6 +59,14 @@ const UserSchema = {
 class User extends Model {
   static associate(models) {
     // associate
+    this.hasOne(models.Profile, {
+      as: 'profile',
+      foreignKey: 'userId'
+    });
+    this.hasMany(models.Profile, {
+      as: 'address',
+      foreignKey: 'userId'
+    });
   }
 
   static config(sequelize) {

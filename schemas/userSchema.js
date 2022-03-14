@@ -1,20 +1,20 @@
 const Joi = require('joi');
 
 const id = Joi.number();
+const email = Joi.string();
 const password = Joi.string();
 const role = Joi.string();
 const is_active = Joi.boolean();
 const is_admin = Joi.boolean();
 const is_staff = Joi.boolean();
-const customerId = Joi.number();
 const timestamp = +new Date();
 
 const createUserScheme = Joi.object({
+    email: email.required(),
     password: password.required(),
-    role:role.required(),
+    role:role.optional(),
     is_staff: is_staff.optional(),
     is_admin: is_admin.optional(),
-    customerId: customerId.required()
 })
 
 const updateUserScheme = Joi.object({
@@ -23,7 +23,6 @@ const updateUserScheme = Joi.object({
   is_active: is_active.optional(),
   is_staff: is_staff.optional(),
   is_admin: is_admin.optional(),
-  customerId: customerId.required(),
   updated: timestamp
 })
 

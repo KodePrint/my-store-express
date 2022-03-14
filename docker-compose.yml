@@ -21,24 +21,24 @@ services:
       - ${PG_PORT}:${PG_REFPORT}
 
 
-  mysql:
-    image: mysql:5
-    environment:
-      - MYSQL_DATABASE=${MYSQL_NAME}
-      - MYSQL_USER=${MYSQL_USER}
-      - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}
-      - MYSQL_PORT=${MYSQL_PORT}
-    ports:
-      - ${MYSQL_PORT}:${MYSQL_PORT}
-    volumes:
-      - ./myslq_data:/var/lib/mysql
+  # mysql:
+  #   image: mysql:5
+  #   environment:
+  #     - MYSQL_DATABASE=${MYSQL_NAME}
+  #     - MYSQL_USER=${MYSQL_USER}
+  #     - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}
+  #     - MYSQL_PORT=${MYSQL_PORT}
+  #   ports:
+  #     - ${MYSQL_PORT}:${MYSQL_PORT}
+  #   volumes:
+  #     - ./myslq_data:/var/lib/mysql
 
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    environment:
-      - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}
-      - PMA_HOST=mysql
-    ports:
-      - 8080:80
-    volumes:
-      - ./myslq_data:/var/lib/mysql
+  # phpmyadmin:
+  #   image: phpmyadmin/phpmyadmin
+  #   environment:
+  #     - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}
+  #     - PMA_HOST=mysql
+  #   ports:
+  #     - 8080:80
+  #   volumes:
+  #     - ./myslq_data:/var/lib/mysql

@@ -1,50 +1,56 @@
 const {Model, DataTypes, Sequelize} = require('sequelize')
+const { USER_TABLE } = require('./userModel')
 
-const CUSTOMER_TABLE = 'customers'; // Nombre de la tabla
+const ADDRESS_TABLE = 'address'; // Nombre de la tabla
 
-const CustomerSchema = {
+const AddressSchema = {
   id: {
     allowNull: false,
     autoIncrement: true,
     primaryKey:true,
     type: DataTypes.INTEGER
   },
-  name: {
+  postalCode: {
+    field: 'postal_code',
+    allowNull:false,
+    type: DataTypes.STRING,
+    unique: true,
+    max: 20
+  },
+  country: {
     allowNull:false,
     type: DataTypes.STRING,
     unique: true,
     max: 75
   },
-  lastName: {
-    allowNull:true,
+  city: {
+    allowNull:false,
     type: DataTypes.STRING,
     unique: true,
-    field: 'last_name',
     max: 75
   },
-  image: {
+  description: {
     allowNull:false,
     type: DataTypes.STRING,
     unique: true,
     max: 255
   },
-  phone: {
-    allowNull:false,
-    type: DataTypes.STRING,
-    unique: true,
-    max: 255
-  },
-  address1: {
-    allowNull:false,
-    type: DataTypes.STRING,
-    unique: true,
-    max: 255
-  },
-  address2: {
+  reference: {
     allowNull:true,
     type: DataTypes.STRING,
     unique: true,
     max: 255
+  },
+  userId: {
+    field: 'user_id',
+    allowNull: false,
+    type: DataTypes.INTEGER,
+    references: {
+      model: USER_TABLE,
+      key: 'id',
+    },
+    onUpdate: 'CASCADE',
+    onDelete: 'SET NULL'
   },
   state: {
     allowNull: false,
@@ -66,19 +72,20 @@ const CustomerSchema = {
   }
 }
 
-class Customer extends Model {
+class Address extends Model {
   static associate(models) {
-      // associate
+    // associate
+    this.belongsTo(models.User, {as: 'user'})
   }
 
   static config(sequelize) {
     return {
         sequelize,
-        tableName: CUSTOMER_TABLE,
-        modelName: 'Customer',
+        tableName: ADDRESS_TABLE,
+        modelName: 'Address',
         timestamps: false
     }
   }
 }
 
-module.exports = { CUSTOMER_TABLE, CustomerSchema, Customer }
+module.exports = { ADDRESS_TABLE, AddressSchema, Address }
