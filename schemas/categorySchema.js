@@ -5,7 +5,7 @@ const description = Joi.string().max(255);
 const state = Joi.boolean().default(true);
 const created = Joi.date();
 const updated = Joi.date();
-
+const timestamp = +new Date();
 
 const createCategory = Joi.object({
     description:description.required().max(255),
@@ -14,6 +14,7 @@ const createCategory = Joi.object({
 const updateCategory = Joi.object({
     description:description.required().max(255),
     state:state.optional(),
+    updated: timestamp
 })
 
 const getCategory = Joi.object({

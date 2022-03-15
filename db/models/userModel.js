@@ -63,8 +63,12 @@ class User extends Model {
       as: 'profile',
       foreignKey: 'userId'
     });
-    this.hasMany(models.Profile, {
+    this.hasMany(models.Address, {
       as: 'address',
+      foreignKey: 'userId'
+    });
+    this.hasMany(models.Order, {
+      as: 'order',
       foreignKey: 'userId'
     });
   }

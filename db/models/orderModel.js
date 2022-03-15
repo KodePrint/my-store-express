@@ -17,8 +17,8 @@ const OrderSchema = {
       this.setDataValue('id', primaryKey);
     },
   },
-  customerId: {
-    field: 'customer_id',
+  userId: {
+    field: 'user_id',
     type: DataTypes.INTEGER,
     allowNull: true,
     references: {
@@ -30,8 +30,8 @@ const OrderSchema = {
   },
   state: {
     allowNull: false,
-    type: DataTypes.BOOLEAN,
-    defaultValue: true,
+    type: DataTypes.INTEGER,
+    defaultValue: 0,
     field: 'state',
   },
   created: {
@@ -51,6 +51,7 @@ const OrderSchema = {
 class Order extends Model {
   static associate(models) {
     // associate
+    this.belongsToMany(models.User, {as:'user'})
   }
 
   static config(sequelize) {

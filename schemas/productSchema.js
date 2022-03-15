@@ -10,6 +10,7 @@ const measureUnitId = Joi.number().integer();
 const state = Joi.boolean().default(true);
 const created_at = Joi.date();
 const updated_at = Joi.date();
+const timestamp = +new Date();
 
 const createProductSchema = Joi.object({
     name: name.required(),
@@ -27,6 +28,7 @@ const updateProductSchema = Joi.object({
     state: state.optional(),
     categoryId: categoryId.optional(),
     measureUnitId: measureUnitId.optional(),
+    updated: timestamp
 })
 
 const getProductSchema = Joi.object({

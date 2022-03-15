@@ -1,18 +1,20 @@
 const Joi = require('joi');
 
 const id = Joi.number();
-const descount = Joi.number().integer();
+const discount = Joi.number().integer();
 const state = Joi.boolean().default(true);
 const created_at = Joi.date();
 const updated_at = Joi.date();
+const timestamp = +new Date();
 
 const createIndicator = Joi.object({
-    descount:descount.required(),
+    discount:discount.required(),
 })
 
 const updateIndicator = Joi.object({
-    descount:descount.optional(),
+    discount:discount.optional(),
     state:state.optional(),
+    updated: timestamp
 })
 
 const getIndicator = Joi.object({

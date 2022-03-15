@@ -23,7 +23,9 @@ function setUpModels (sequelize) {
     Address.associate(sequelize.models);
     MeasureUnit.associate(sequelize.models);
     Category.associate(sequelize.models);
+    Indicator.associate(sequelize.models);
     Product.associate(sequelize.models);
+    Order.associate(sequelize.models);
 }
 
 module.exports = setUpModels;

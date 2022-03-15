@@ -5,6 +5,8 @@ const description = Joi.string().max(256);
 const state = Joi.boolean().default(true);
 const created_at = Joi.date();
 const updated_at = Joi.date();
+const timestamp = +new Date();
+
 
 const createMeasureUnit = Joi.object({
     description:description.required(),
@@ -13,6 +15,7 @@ const createMeasureUnit = Joi.object({
 const updateMeasureUnit = Joi.object({
     description:description.optional(),
     state:state.optional(),
+    updated: timestamp
 })
 
 const getMeasureUnit = Joi.object({

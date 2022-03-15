@@ -9,7 +9,7 @@ const IndicatorSchema = {
         primaryKey:true,
         type: DataTypes.INTEGER,
     },
-    descount: {
+    discount: {
         allowNull:false,
         type: DataTypes.INTEGER,
     },
@@ -34,8 +34,12 @@ const IndicatorSchema = {
 }
 
 class Indicator extends Model {
-    static associate() {
+    static associate(models) {
         // associate
+        this.belongsTo(models.Product, {
+            as: 'product',
+            foreignKey: 'indicatorId'
+        })
     }
 
     static config(sequelize) {

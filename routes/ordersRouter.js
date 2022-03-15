@@ -1,57 +1,85 @@
 const express = require('express');
 const OrderService = require('../services/orderServices')
 const validatorHandler = require('../middlewares/validatorHandler')
-const { createMeasureUnit, updateMeasureUnit, getMeasureUnit } = require('../schemas/measureUnitSchema');
+const { createProductSchema, updateOrderScheme, getOrderScheme } = require('../schemas/orderSchema')
 
 const router = express.Router()
 const service = new OrderService();
 
-// Retorna todas las unidades de medida
-router.get('/', async (req, res, next) => {
-    const orders = await service.getAll()
-    res.status(200).json(orders)
-})
+// GET
+router.get('/', async (req, res) => {
+    const products = await service.getAll();
+    res.status(200).json(products)
+  });
 
-// Retorna una unidad de medida por ID
 router.get('/:id',
-    validatorHandler(getMeasureUnit, 'params'),
-    async (req, res, next) => {
-        try {
-            const {id} = req.params;
-            const order = await service.getOne(id)
-            res.status(200).json(order)
-        } catch (error) {
-            next(error)
-        }
+  validatorHandler(getOrderScheme, 'params'),
+  async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      const product = await service.getOne(id)
+      res.status(200).json(product)
+    } catch (error) {
+      next(error);
     }
-)
+  }
+);
 
-// Crea una nueva unidad de medida
+// POST
 router.post('/',
-    validatorHandler(createMeasureUnit, 'body'),
-    async(req, res, next) => {
-        try {
-            const body = req.body;
-            const order = await service.create(body)
-            res.status(201).json(order)
-        } catch (error) {
-            next(error)
-        }
+  validatorHandler(createProductSchema, 'body'),
+  async (req, res, next) => {
+    try {
+      const body = req.body;
+      const product = await service.create(body)
+      res.status(201).json({
+        message: 'created',
+        product:product
+      })
+    } catch (error) {
+      next(error);
     }
+}
 )
-
-// Elimina una unidad de medida por su ID
-router.delete('/:id',
-    validatorHandler(getMeasureUnit, 'params'),
-    async(req, res, next) => {
-        try {
-            const {id} = req.params;
-            const order = await service.partialDelete(id)
-            res.status(200).json(order)
-        } catch (error) {
-            next(error)
-        }
+// PATCH
+router.patch('/:id',
+  validatorHandler(getOrderScheme, 'params'),
+  validatorHandler(updateOrderScheme, 'body'),
+  async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      const body = req.body;
+      const product = await service.update(id, body);
+      res.json(product)
+    } catch (error) {
+      next(error)
     }
+  }
 )
+// PUT
+router.put('/:id',
+  validatorHandler(getOrderScheme, 'params'),
+  validatorHandler(updateOrderScheme, 'body'),
+  async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      const body = req.body;
+      const product = await service.update(id, body);
+      res.json(product)
+    } catch (error) {
+      next(error)
+    }
+  }
+)
+// DELETE
+router.delete('/:id', async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const product = await service.delete(id);
+    res.status(200).json(product)
+  } catch (error) {
+    next(error)
+  }
+})
 
 module.exports = router

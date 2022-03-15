@@ -1,6 +1,7 @@
 const {Model, DataTypes, Sequelize} = require('sequelize')
 const {CATEGORY_TABLE} = require('./categoryModel')
 const {MEASURE_UNIT_TABLE} = require('./measureUnitModel')
+const {INDICATOR_TABLE} = require('./indicatorModel')
 
 const PRODUCT_TABLE = 'products'; // Nombre de la tabla
 
@@ -44,6 +45,7 @@ const ProductSchema = {
       field: 'state',
   },
   measureUnitId: {
+    field: 'measure_unit_id',
     type: DataTypes.INTEGER,
     allowNull: true,
     references: {
@@ -54,10 +56,22 @@ const ProductSchema = {
     onUpdate: 'CASCADE'
   },
   categoryId: {
+    field: 'category_id',
     type: DataTypes.INTEGER,
     allowNull: true,
     references: {
       model: CATEGORY_TABLE,
+      key: 'id'
+    },
+    onDelete: 'SET NULL',
+    onUpdate: 'CASCADE'
+  },
+  indicatorId: {
+    field: 'indicator_id',
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    references: {
+      model: INDICATOR_TABLE,
       key: 'id'
     },
     onDelete: 'SET NULL',
@@ -82,6 +96,7 @@ class Product extends Model {
         // associate
         this.belongsTo(models.Category, {as: 'category'});
         this.belongsTo(models.MeasureUnit, {as: 'measure_unit'});
+        this.hasOne(models.Indicator)
     }
 
     static config(sequelize) {

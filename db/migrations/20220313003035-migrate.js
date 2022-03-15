@@ -6,6 +6,8 @@ const {ADDRESS_TABLE, AddressSchema}  = require('../models/addressModel');
 const {CATEGORY_TABLE, CategorySchema}  = require('../models/categoryModel');
 const {PRODUCT_TABLE, ProductSchema}  = require('../models/productModel');
 const {MEASURE_UNIT_TABLE, MeasureUnitSchema}  = require('../models/measureUnitModel');
+const {INDICATOR_TABLE, IndicatorSchema}  = require('../models/indicatorModel');
+const {ORDER_TABLE, OrderSchema}  = require('../models/orderModel');
 
 module.exports = {
   async up (queryInterface, Sequelize) {
@@ -15,6 +17,8 @@ module.exports = {
     await queryInterface.createTable(MEASURE_UNIT_TABLE, MeasureUnitSchema);
     await queryInterface.createTable(CATEGORY_TABLE, CategorySchema);
     await queryInterface.createTable(PRODUCT_TABLE, ProductSchema);
+    await queryInterface.createTable(INDICATOR_TABLE, IndicatorSchema);
+    await queryInterface.createTable(ORDER_TABLE, OrderSchema);
   },
 
   async down (queryInterface, Sequelize) {
@@ -24,5 +28,7 @@ module.exports = {
     await queryInterface.dropTable(MEASURE_UNIT_TABLE);
     await queryInterface.dropTable(CATEGORY_TABLE);
     await queryInterface.dropTable(PRODUCT_TABLE);
+    await queryInterface.dropTable(INDICATOR_TABLE);
+    await queryInterface.dropTable(ORDER_TABLE);
   }
 };
