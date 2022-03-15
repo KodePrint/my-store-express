@@ -9,18 +9,12 @@ const OrderSchema = {
     allowNull: false,
     autoIncrement: true,
     primaryKey:true,
-    type: DataTypes.UUID,
-    set(value) {
-      const customer = getDataValue('customerId');
-      const date = getDataValue('created');
-      const primaryKey = (value+'-'+customer+'-'+date);
-      this.setDataValue('id', primaryKey);
-    },
+    type: DataTypes.INTEGER,
   },
   userId: {
     field: 'user_id',
     type: DataTypes.INTEGER,
-    allowNull: true,
+    allowNull: false,
     references: {
       model: USER_TABLE,
       key: 'id'
@@ -51,7 +45,7 @@ const OrderSchema = {
 class Order extends Model {
   static associate(models) {
     // associate
-    this.belongsToMany(models.User, {as:'user'})
+    this.belongsTo(models.User, {as: 'user'})
   }
 
   static config(sequelize) {

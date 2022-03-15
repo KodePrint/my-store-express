@@ -1,7 +1,7 @@
 const express = require('express');
 const OrderService = require('../services/orderServices')
 const validatorHandler = require('../middlewares/validatorHandler')
-const { createProductSchema, updateOrderScheme, getOrderScheme } = require('../schemas/orderSchema')
+const { createOrderScheme, updateOrderScheme, getOrderScheme } = require('../schemas/orderSchema')
 
 const router = express.Router()
 const service = new OrderService();
@@ -27,7 +27,7 @@ router.get('/:id',
 
 // POST
 router.post('/',
-  validatorHandler(createProductSchema, 'body'),
+  validatorHandler(createOrderScheme, 'body'),
   async (req, res, next) => {
     try {
       const body = req.body;

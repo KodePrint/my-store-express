@@ -16,8 +16,8 @@ module.exports = {
     await queryInterface.createTable(ADDRESS_TABLE, AddressSchema);
     await queryInterface.createTable(MEASURE_UNIT_TABLE, MeasureUnitSchema);
     await queryInterface.createTable(CATEGORY_TABLE, CategorySchema);
-    await queryInterface.createTable(PRODUCT_TABLE, ProductSchema);
     await queryInterface.createTable(INDICATOR_TABLE, IndicatorSchema);
+    await queryInterface.createTable(PRODUCT_TABLE, ProductSchema);
     await queryInterface.createTable(ORDER_TABLE, OrderSchema);
   },
 
@@ -26,9 +26,9 @@ module.exports = {
     await queryInterface.dropTable(PROFILE_TABLE);
     await queryInterface.dropTable(ADDRESS_TABLE);
     await queryInterface.dropTable(MEASURE_UNIT_TABLE);
+    await queryInterface.dropTable(INDICATOR_TABLE);
     await queryInterface.dropTable(CATEGORY_TABLE);
     await queryInterface.dropTable(PRODUCT_TABLE);
-    await queryInterface.dropTable(INDICATOR_TABLE);
     await queryInterface.dropTable(ORDER_TABLE);
   }
 };

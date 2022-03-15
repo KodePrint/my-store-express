@@ -3,9 +3,11 @@ const Joi = require('joi');
 const id = Joi.number();
 const userId = Joi.number().integer();
 const state = Joi.number().integer();
+const timestamp = +new Date();
+
 
 const createOrderScheme = Joi.object({
-    id: id.required(),
+    userId: userId.required()
 })
 
 const updateOrderScheme = Joi.object({

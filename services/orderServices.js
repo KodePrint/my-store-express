@@ -14,10 +14,13 @@ class OrderService {
   // Retorna una categoria por pk
   async getOne(id) {
     const order = await models.Order.findByPk(id, {
-      attributes: ['id', 'description',],
       include: [{
-        association: 'products',
-        attributes: ['id', 'name','description','image','price']
+        attributes: ['email'],
+        association: 'user',
+        include: [{
+          attributes: ['name', 'last_name', 'image', 'phone'],
+          association: 'profile'
+        }]
       }]
     });
     if (!order) {
@@ -42,20 +45,20 @@ class OrderService {
   // Cambia el estado a falso para persistencia de informacion
   async partialDelete(id) {
     const order = await this.getOne(id);
-    order.update({'state': false})
-    let id = await order.getDataValue('id')
+    order.update({'state': false});
     return {
-      message: `Categori with Id: ${id} has ben deleted of the app successfull..!`
+      message: `Order with Id: ${id} has ben deleted of the app successfull..!`
     };
   }
 
   // Elimina una categoria de la base de datos
   async delete(id) {
-    const order = await this.getOne(id);
-    let id = await order.getDataValue('id')
+    const order = await this.getOne(id, {
+      include: ['user']
+    });
     await order.destroy();
     return {
-      message: `Category with Id: ${id} has ben deleted successfull..!`
+      message: `Order with Id: ${id} has ben deleted successfull..!`
     };
   }
 

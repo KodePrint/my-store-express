@@ -27,7 +27,9 @@ class ProfileService {
 
   // Obtiene un perfil por su primarykey, acutaliza sus campos y lo retorna
   async update(id, changes) {
-    const oldProfile = await this.getOne(id);
+    const oldProfile = await this.getOne(id, {
+      include: ['user']
+    });
     const newProfile = await oldProfile.update(changes);
     return newProfile;
   }

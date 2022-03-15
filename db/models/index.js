@@ -1,4 +1,3 @@
-const {CustomerSchema, Customer} = require('./customerModel');
 const {UserSchema, User} = require('./userModel');
 const {ProfileSchema, Profile} = require('./profileModel');
 const {AddressSchema, Address} = require('./addressModel');
