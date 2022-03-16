@@ -8,6 +8,8 @@ const {PRODUCT_TABLE, ProductSchema}  = require('../models/productModel');
 const {MEASURE_UNIT_TABLE, MeasureUnitSchema}  = require('../models/measureUnitModel');
 const {INDICATOR_TABLE, IndicatorSchema}  = require('../models/indicatorModel');
 const {ORDER_TABLE, OrderSchema}  = require('../models/orderModel');
+const {ORDER_PRODUCT_TABLE, OrderProductSchema}  = require('../models/order-productModel');
+
 
 module.exports = {
   async up (queryInterface, Sequelize) {
@@ -19,6 +21,8 @@ module.exports = {
     await queryInterface.createTable(INDICATOR_TABLE, IndicatorSchema);
     await queryInterface.createTable(PRODUCT_TABLE, ProductSchema);
     await queryInterface.createTable(ORDER_TABLE, OrderSchema);
+    await queryInterface.createTable(ORDER_PRODUCT_TABLE, OrderProductSchema);
+
   },
 
   async down (queryInterface, Sequelize) {
@@ -30,5 +34,6 @@ module.exports = {
     await queryInterface.dropTable(CATEGORY_TABLE);
     await queryInterface.dropTable(PRODUCT_TABLE);
     await queryInterface.dropTable(ORDER_TABLE);
+    await queryInterface.dropTable(ORDER_PRODUCT_TABLE);
   }
 };

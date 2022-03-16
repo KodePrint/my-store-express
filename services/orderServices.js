@@ -15,20 +15,25 @@ class OrderService {
   async getOne(id) {
     const order = await models.Order.findByPk(id, {
       attributes: ['id', 'created', 'state'],
-      include: [{
-        attributes: ['email'],
-        association: 'user',
-        include: [
-          {
-            attributes: ['name', 'last_name', 'image', 'phone'],
-            association: 'profile'
-          },
-          {
-            attributes: ['postalCode', 'country', 'city', 'description', 'reference'],
-            association: 'address'
-          },
-        ]
-      }]
+      include: [
+        {
+          attributes: ['email'],
+          association: 'user',
+          include: [
+            {
+              attributes: ['name', 'last_name', 'image', 'phone'],
+              association: 'profile'
+            },
+            {
+              attributes: ['postalCode', 'country', 'city', 'description', 'reference'],
+              association: 'address'
+            },
+          ]
+        },
+        {
+          association: 'items'
+        }
+      ]
     });
     if (!order) {
       throw boom.notFound(`Order with id:${id} not exits..!`)
@@ -40,6 +45,12 @@ class OrderService {
   async create(body) {
     const newOrder = await models.Order.create(body)
     return await this.getOne(newOrder.id);
+  }
+
+  // Crea un nuevo Item para la orden y la retorna
+  async addItem(body) {
+    const newItem = await models.OrderProduct.create(body)
+    return await this.getOne(newItem.id);
   }
 
   // Actualiza una categoria y la retorna
