@@ -2,7 +2,7 @@ const Joi = require('joi');
 
 const id = Joi.number();
 const name = Joi.string();
-const last_name = Joi.string();
+const lastName = Joi.string();
 const image = Joi.string();
 const phone = Joi.string();
 const userId = Joi.number().integer();
@@ -11,17 +11,17 @@ const timestamp = +new Date();
 
 const createProfileScheme = Joi.object({
     name: name.required(),
-    last_name: last_name.required(),
+    lastName: lastName.required(),
     image: image.required(),
     phone: phone.required(),
     userId: userId.required()
 })
 
 const updateProfileScheme = Joi.object({
-    name: name.required(),
-    last_name: last_name.required(),
-    image: image.required(),
-    phone: phone.required(),
+    name: name.optional(),
+    lastName: lastName.optional(),
+    image: image.optional(),
+    phone: phone.optional(),
     state: state.optional(),
     updated: timestamp
 })

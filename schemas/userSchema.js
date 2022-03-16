@@ -1,3 +1,5 @@
+const {createProfileScheme, updateProfileScheme} = require('./profileSchema')
+const {createAddressScheme, updateAddressScheme, getAddressScheme} = require('./addressSchema')
 const Joi = require('joi');
 
 const id = Joi.number();
@@ -8,6 +10,8 @@ const is_active = Joi.boolean();
 const is_admin = Joi.boolean();
 const is_staff = Joi.boolean();
 const timestamp = +new Date();
+const profile = createProfileScheme;
+const address = createAddressScheme
 
 const createUserScheme = Joi.object({
     email: email.required(),
@@ -15,6 +19,8 @@ const createUserScheme = Joi.object({
     role:role.optional(),
     is_staff: is_staff.optional(),
     is_admin: is_admin.optional(),
+    profile: profile.optional(),
+    address: address.optional(),
 })
 
 const updateUserScheme = Joi.object({

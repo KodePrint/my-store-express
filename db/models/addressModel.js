@@ -14,31 +14,26 @@ const AddressSchema = {
     field: 'postal_code',
     allowNull:false,
     type: DataTypes.STRING,
-    unique: true,
     max: 20
   },
   country: {
     allowNull:false,
     type: DataTypes.STRING,
-    unique: true,
     max: 75
   },
   city: {
     allowNull:false,
     type: DataTypes.STRING,
-    unique: true,
     max: 75
   },
   description: {
     allowNull:false,
     type: DataTypes.STRING,
-    unique: true,
     max: 255
   },
   reference: {
     allowNull:true,
     type: DataTypes.STRING,
-    unique: true,
     max: 255
   },
   userId: {

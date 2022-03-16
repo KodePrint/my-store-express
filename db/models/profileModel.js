@@ -13,20 +13,17 @@ const ProfileSchema = {
   name: {
     allowNull:false,
     type: DataTypes.STRING,
-    unique: true,
     max: 75
   },
   lastName: {
     allowNull:true,
     type: DataTypes.STRING,
-    unique: true,
     field: 'last_name',
     max: 75
   },
   image: {
     allowNull:false,
     type: DataTypes.STRING,
-    unique: true,
     max: 255
   },
   phone: {

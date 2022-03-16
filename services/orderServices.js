@@ -14,13 +14,20 @@ class OrderService {
   // Retorna una categoria por pk
   async getOne(id) {
     const order = await models.Order.findByPk(id, {
+      attributes: ['id', 'created', 'state'],
       include: [{
         attributes: ['email'],
         association: 'user',
-        include: [{
-          attributes: ['name', 'last_name', 'image', 'phone'],
-          association: 'profile'
-        }]
+        include: [
+          {
+            attributes: ['name', 'last_name', 'image', 'phone'],
+            association: 'profile'
+          },
+          {
+            attributes: ['postalCode', 'country', 'city', 'description', 'reference'],
+            association: 'address'
+          },
+        ]
       }]
     });
     if (!order) {
@@ -32,7 +39,7 @@ class OrderService {
   // Crea una categoria y la retorna
   async create(body) {
     const newOrder = await models.Order.create(body)
-    return newOrder;
+    return await this.getOne(newOrder.id);
   }
 
   // Actualiza una categoria y la retorna

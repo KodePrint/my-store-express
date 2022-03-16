@@ -9,8 +9,10 @@ class UsersService {
   async create(body) {
     let password_hashed = await bcrypt.hash(body.password, 8)
     body.password = password_hashed
-    const user = await models.User.create(body);
-    return user;
+    const newUser = await models.User.create(body);
+    const profile = await models.Profile.create({...body.profile, userId: newUser.id})
+    const address = await models.Address.create({...body.address, userId: newUser.id})
+    return await this.getOne(newUser.id);
   }
 
   // Retorna el listado de todos los usuarios de la base de datos
@@ -22,7 +24,17 @@ class UsersService {
   // Retorna un usuario por su primaryKey
   async getOne(id) {
     const user = await models.User.findByPk(id, {
-      include: ['profile', 'address']
+      attributes: ['id', 'email', 'role', 'isActive', 'isAdmin', 'isStaff'],
+      include: [
+        {
+          association: 'profile',
+          attributes: ['name', 'lastName', 'image', 'phone']
+        },
+        {
+          association: 'address',
+          attributes: ["postalCode", "country", "city", "description", "reference"]
+        }
+      ],
     })
     if (!user) {
       throw boom.notFound(`User with id:${id} not exits..!`)
