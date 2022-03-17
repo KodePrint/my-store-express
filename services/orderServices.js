@@ -14,8 +14,10 @@ class OrderService {
   // Retorna una categoria por pk
   async getOne(id) {
     const order = await models.Order.findByPk(id, {
-      attributes: ['id', 'created', 'state'],
+      attributes: ['id', 'created', 'state', 'total'],
       include: [
+
+        // User Data
         {
           attributes: ['email'],
           association: 'user',
@@ -30,8 +32,10 @@ class OrderService {
             },
           ]
         },
+        // Items List
         {
-          association: 'items'
+          attributes: ['name', 'description', 'price'],
+          association: 'items',
         }
       ]
     });

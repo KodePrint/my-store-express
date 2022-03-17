@@ -97,6 +97,12 @@ class Product extends Model {
         this.belongsTo(models.Category, {as: 'category'});
         this.belongsTo(models.MeasureUnit, {as: 'measure_unit'});
         this.hasOne(models.Indicator)
+        this.belongsToMany(models.Product, {
+          as: 'items',
+          through: models.OrderProduct,
+          foreignKey: 'orderId',
+          otherKey: 'productId'
+        });
     }
 
     static config(sequelize) {

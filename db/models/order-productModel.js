@@ -57,8 +57,8 @@ const OrderProductSchema = {
   },
   subtotal: {
     type: DataTypes.DECIMAL(15, 2),
-    get() {
-      return this.amount * this.product.price
+    set(value) {
+      this.setDataValue(this.amount * this.productId.price )
     }
   }
 }
