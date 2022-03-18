@@ -45,7 +45,7 @@ const AddressSchema = {
       key: 'id',
     },
     onUpdate: 'CASCADE',
-    onDelete: 'SET NULL'
+    onDelete: 'CASCADE'
   },
   state: {
     allowNull: false,
