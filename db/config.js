@@ -9,7 +9,7 @@ module.exports = {
     url: config.dbUrl,
     dialect: 'postgres',
     dialectOptions: {
-	sl: {
+	sll: {
 	    rejectUnauthorized: false
         }
     }
