@@ -4,11 +4,6 @@ const routerApi = require('./routes')
 const { logErrors, errorHandler, boomErrorHandler, ormErrorHandler, dbOrmErrorHandler } = require('./middlewares/errorHandler')
 const path = require('path')
 
-// Swagger
-const swaggerUI = require('swagger-ui-express');
-const swaggerJsDoc = require('swagger-jsdoc');
-swaggerDocument = require('./swagger.json')
-
 // Settings
 const whiteList = ['http://localhost:5500','http://127.0.0.1:5500']
 
@@ -35,7 +30,6 @@ app.use(logErrors);
 app.use(ormErrorHandler);
 app.use(boomErrorHandler);
 app.use(errorHandler);
-app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument))
 
 app.listen(port, () => {
   console.log('mi port' + port)
