@@ -5,8 +5,9 @@ const options = {};
 
 if (config.isProd) {
     options.connectionString = config.dbUrl;
-    optons.dialectOptions: {
-	ssl: {rejectUnauthorized:false}
+    options.dialect: 'postgres',
+    options.dialectOptions: {
+	ssl: {require:true, rejectUnauthorized:false}
     }
 }
 

@@ -16,6 +16,7 @@ console.log(config.dbUrl);
 if (config.isProd) {
     options.dialectOptions = {
 	ssl: {
+	    require: true,
 	    rejectUnauthorized: false
     	}
     }
