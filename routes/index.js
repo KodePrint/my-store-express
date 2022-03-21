@@ -15,7 +15,7 @@ const profilesRouter = require('./profilesRouter');
 
 function routerApi(app) {
     const router = express.Router();
-    app.use('', swaggerUi.serve, swaggerUi.setup(swaggerSetup);
+    app.use('', swaggerUi.serve, swaggerUi.setup(swaggerSetup));
     app.use('/api/v1', router)
     router.use('/products', productsRouter);
     router.use('/measure_units', measureUnitRouter);
