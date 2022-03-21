@@ -8,6 +8,11 @@ const options = {
      loggin: config.isProd ? false : true,
 };
 
+console.log('Esta es la cadena de conexion SQL');
+console.log(config.dbUrl);
+
+
+
 if (config.isProd) {
     options.dialectOptions = {
 	ssl: {
