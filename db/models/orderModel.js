@@ -14,7 +14,7 @@ const OrderSchema = {
   userId: {
     field: 'user_id',
     type: DataTypes.INTEGER,
-    allowNull: false,
+    allowNull: true,
     references: {
       model: USER_TABLE,
       key: 'id'
@@ -41,12 +41,14 @@ const OrderSchema = {
       defaultValue: Sequelize.NOW
   },
   total: {
-    type: DataTypes.VIRTUAL,
+    type: DataTypes.DECIMAL(15,2),
     get() {
-      if(this.items.length > 0) {
-        return this.items.reduce((total, item) => {
-          return total + (item.price * item.OrderProduct.amount) 
-        }, 0);
+      if(this.items){
+        if(this.items.length > 0) {
+          return this.items.reduce((total, item) => {
+            return total + (item.price * item.OrderProduct.amount)
+          }, 0);
+        }
       }
       return 0;
     }

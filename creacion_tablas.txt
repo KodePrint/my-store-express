@@ -32,7 +32,7 @@ CREATE TABLE product (
 	id serial PRIMARY KEY,
 	name VARCHAR(150) UNIQUE NOT NULL,
 	decription VARCHAR(400) NOT NULL,
-	image VARCHAR(1024) NOT NULL,	
+	image VARCHAR(1024) NOT NULL,
 	category_product_id INTEGER,
 	measure_unit_id INTEGER,
 	state BOOLEAN NOT NULL DEFAULT TRUE
@@ -43,3 +43,40 @@ CREATE TABLE product (
 		FOREIGN KEY(measure_unit_id)
 			REFERENCES measure_unit(id)
 );
+
+INSERT INTO `categories`(`description`) VALUES ('audio'), ('cameras'), ('cell phones'), ('hard drivers'), ('gaming'), ('memories') ,('mouses') ,('accesories') ,('security') ,('programs') ,('computers') ,('network') ,('monitors') ,('streaming');
+
+
+Insert Memories USB in table Products DataBase
+INSERT INTO `products`(`name`, `description`, `price`, `image`, `measure_unit_id`,  `category_id`)
+  VALUES
+    ('flashdrive kingston data traveler exodia 32gb usb3.2 rojo','Memomia usb kingston color rojo', 36.00,'https://www.intelaf.com/images/productos/gran/FLA-KDTEXO-32GR.jpg', 1, 7),
+    ('flashdrive kingston data traveler exodia 32gb usb3.2 verde','Memomia usb kingston color verde', 36.00,'https://www.intelaf.com/images/productos/gran/FLA-KDTEXO-32GV.jpg', 1, 7),
+    ('flashdrive kingston data traveler exodia 32gb usb3.2 anaranjado','Memomia usb kingston color anaranjado', 36.00,'https://www.intelaf.com/images/productos/gran/FLA-KDTEXO-32GA.jpg', 1, 7),
+    ('flashdrive kingston data traveler exodia 32gb usb3.2 blanco','Memomia usb kingston color blanco', 36.00,'https://www.intelaf.com/images/productos/gran/FLA-KDTEXO-32GB.jpg', 1, 7),
+    ('flashdrive kingston exodia 32gb usb3.2 gen1 dtx/32gb','Memomia usb kingston color negro de 32gb', 36.00,'https://www.intelaf.com/images/productos/gran/FLA-KNEXOD-32G1.jpg', 1, 7),
+    ('flashdrive kingston data traveler 70 128gb usb-c','Memoria usb tipo C, 128GB color negro', 141.00,'https://www.intelaf.com/images/productos/gran/FLA-KDT70-128.jpg', 1, 7),
+    ('flashdrive kingston data traveler exodia 128gb usb3.2 blanco','Memoria usb color blanco de 128GB', 135.00,'https://www.intelaf.com/images/productos/gran/FLA-KDTEXO-128B.jpg', 1, 7),
+    ('flasdrive sandisk ultra dual drive go usb type-c 64bg','Memoria usb dual tipo c marca sandisk', 162.00,'https://www.intelaf.com/images/productos/gran/FLA-SNDUDGC-64G.jpg', 1, 7),
+    ('flasdrive kingston microduo 3c 64gb usb-c y usb-a','Memoria usb duo micro typo C', 165.00, 'https://www.intelaf.com/images/productos/gran/FLA-KDMD3C-64.jpg', 1, 7);
+
+
+Insert Chairs in table Products DataBase
+INSERT INTO `products`(`name`, `description`, `price`, `image`, `measure_unit_id`,  `category_id`)
+  VALUES
+    ('silla xtech drakon con respaldo alto estilo deportivo xtf-ec129','silla gamer', 36.00,'https://www.intelaf.com/images/productos/gran/FLA-KDTEXO-32GR.jpg', 1, 6),
+    ('silla checkpoint cp-1500 para gamers color negro con rojo','silla gamer ', 1641.00,'https://www.intelaf.com/images/productos/gran/SILLA-CP-1500NR.jpg', 1, 6),
+    ('silla argom para gamers ergo gx5 arg-ch-9005rd color negro con rojo','silla gamer ', 1600.00,'https://www.intelaf.com/images/productos/gran/SILLA-ARG-9005R.jpg', 1, 6),
+    ('silla checkpoint cp-1550 para gamers color negro','silla gamer ', 1672.00,'https://www.intelaf.com/images/productos/gran/SILLA-CP-1550N.jpg', 1, 6),
+    ('silla checkpoint cp-1550 para gamers color negro con rojo','silla gamer ', 1641.00,'https://www.intelaf.com/images/productos/gran/SILLA-CP-1550NR.jpg', 1, 6),
+    ('silla checkpoint cp-1550 para gamers color negro con blanco','silla gamer ', 1672.00,'https://www.intelaf.com/images/productos/gran/SILLA-CP-1550NB.jpg', 1, 6),
+    ('silla checkpoint cp-1500 para gamers color negro con blanco','silla gamer ', 1708.00,'https://www.intelaf.com/images/productos/gran/SILLA-CP-1500NB.jpg', 1, 6),
+    ('silla checkpoint cp-1500 para gamers color negro','silla gamer ', 1708.00,'https://www.intelaf.com/images/productos/gran/SILLA-CP-1500N.jpg', 1, 6),
+    ('silla checkpoint cp-2000 para gamers color negro con blanco','silla gamer ', 1807.00,'https://www.intelaf.com/images/productos/gran/SILLA-CP-2000NB.jpg', 1, 6),
+    ('silla checkpoint cp-2000 para gamers color negro con rojo','silla gamer ', 1641.00,'https://www.intelaf.com/images/productos/gran/SILLA-CP-2000NR.jpg', 1, 6),
+    ('silla primus para gamers thronos 100t pch-102rd rojo','silla gamer ', 2109.00,'https://www.intelaf.com/images/productos/gran/SILLA-PRI-102RD.jpg', 1, 6),
+    ('silla argom para gamers ergo fx arg-ch-9010 color negro con rojo','silla gamer ', 2266.00,'https://www.intelaf.com/images/productos/gran/SILLA-ARG-9010N.jpg', 1, 6),
+    ('silla primus para gamers thronos 100t pch-102bl azul','silla gamer ', 2536.00,'https://www.intelaf.com/images/productos/gran/SILLA-PRI-102BL.jpg', 1, 6),
+    ('silla primus para gamers thronos 100t pch-102yl amarillo','silla gamer ', 2542.00,'https://www.intelaf.com/images/productos/gran/SILLA-PRI-102YA.jpg', 1, 6),
+    ('silla corsair t2 road warrior negro con amarillo gamers cf-9010010-ww','silla gamer ', 3260.00,'https://www.intelaf.com/images/productos/gran/SILLA-COR-T2NAM.jpg', 1, 6),
+    ('silla razer iskur x negro para gamers rz38-02840100-r3u1','silla gamer ', 3375.00,'https://www.intelaf.com/images/productos/gran/SILLA-RAZ-ISKXN.jpg', 1, 6);

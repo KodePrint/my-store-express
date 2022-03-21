@@ -7,11 +7,24 @@ const router = express.Router()
 const service = new CategoriesService();
 
 
+
 // GET
 router.get('/', async (req, res, next) => {
   const categories = await service.getAll();
   res.status(200).json(categories)
 })
+// Obtener por nombre
+router.get('/search',
+  async (req, res, next) => {
+    try {
+      const { name } = req.query;
+      const category = await service.getByName(name)
+      res.status(200).json(category)
+    } catch (error) {
+      next(error)
+    }
+  }
+)
 
 router.get('/:id',
   validatorHandler(getCategory, 'params'),

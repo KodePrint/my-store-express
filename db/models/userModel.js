@@ -13,6 +13,9 @@ const UserSchema = {
     allowNull:false,
     type: DataTypes.STRING,
     unique: true,
+    set(value) {
+      this.setDataValue('email', value.toLowerCase())
+    }
   },
   password: {
     allowNull: false,

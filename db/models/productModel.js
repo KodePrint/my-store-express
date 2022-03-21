@@ -15,7 +15,6 @@ const ProductSchema = {
   name: {
       allowNull:false,
       type: DataTypes.STRING,
-      unique: true,
       max: 125,
       set(value) {
         this.setDataValue('name', value.toLowerCase())

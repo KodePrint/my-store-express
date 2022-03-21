@@ -10,8 +10,8 @@ const is_active = Joi.boolean();
 const is_admin = Joi.boolean();
 const is_staff = Joi.boolean();
 const timestamp = +new Date();
-const profile = createProfileScheme;
-const address = createAddressScheme
+const profile = updateProfileScheme;
+const address = updateAddressScheme;
 
 const createUserScheme = Joi.object({
     email: email.required(),

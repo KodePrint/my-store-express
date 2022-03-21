@@ -13,13 +13,19 @@ const ProfileSchema = {
   name: {
     allowNull:false,
     type: DataTypes.STRING,
-    max: 75
+    max: 75,
+    set(value) {
+      this.setDataValue('name', value.toLowerCase())
+    }
   },
   lastName: {
     allowNull:true,
     type: DataTypes.STRING,
     field: 'last_name',
-    max: 75
+    max: 75,
+    set(value) {
+      this.setDataValue('last_name', value.toLowerCase())
+    }
   },
   image: {
     allowNull:false,
@@ -41,7 +47,7 @@ const ProfileSchema = {
         model: USER_TABLE,
         key: 'id'
     },
-    onDelete: 'RESTRICT',
+    onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
   },
   state: {

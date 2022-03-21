@@ -19,22 +19,34 @@ const AddressSchema = {
   country: {
     allowNull:false,
     type: DataTypes.STRING,
-    max: 75
+    max: 75,
+    set(value) {
+      this.setDataValue('country', value.toLowerCase())
+    }
   },
   city: {
     allowNull:false,
     type: DataTypes.STRING,
-    max: 75
+    max: 75,
+    set(value) {
+      this.setDataValue('city', value.toLowerCase())
+    }
   },
   description: {
     allowNull:false,
     type: DataTypes.STRING,
-    max: 255
+    max: 255,
+    set(value) {
+      this.setDataValue('description', value.toLowerCase())
+    }
   },
   reference: {
     allowNull:true,
     type: DataTypes.STRING,
-    max: 255
+    max: 255,
+    set(value) {
+      this.setDataValue('reference', value.toLowerCase())
+    }
   },
   userId: {
     field: 'user_id',

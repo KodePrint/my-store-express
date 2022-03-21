@@ -51,6 +51,14 @@ class OrderService {
     return await this.getOne(newOrder.id);
   }
 
+  async getOrderUserActive(query){
+    const options = {
+      attributes: ['id', 'created', 'state', 'total'],
+      where: {}
+    }
+    const {user} = query
+  }
+
   // Crea un nuevo Item para la orden y la retorna
   async addItem(body) {
     const newItem = await models.OrderProduct.create(body)

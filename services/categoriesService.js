@@ -30,6 +30,21 @@ class CategoriesService {
     return category;
   }
 
+  // Retorna una categoria por descripcion
+ async getByName(descripcion) {
+  const category = await models.Category.findOne({where: {description: descripcion}}, {
+    attributes: ['id', 'description',],
+    include: [{
+      association: 'products',
+      attributes: ['id', 'name','description','image','price']
+    }]
+  });
+  if (!category) {
+    throw boom.notFound(`Category with id:${id} not exits..!`)
+  }
+  return category;
+}
+
   // Crea una categoria y la retorna
   async create(body) {
     const newCategory = await models.Category.create(body)

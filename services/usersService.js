@@ -10,8 +10,12 @@ class UsersService {
     let password_hashed = await bcrypt.hash(body.password, 8)
     body.password = password_hashed
     const newUser = await models.User.create(body);
-    const profile = await models.Profile.create({...body.profile, userId: newUser.id})
-    const address = await models.Address.create({...body.address, userId: newUser.id})
+    if (body.profile) {
+      const profile = await models.Profile.create({...body.profile, userId: newUser.id})
+    }
+    if (body.address) {
+      const address = await models.Address.create({...body.address, userId: newUser.id})
+    }
     return await this.getOne(newUser.id);
   }
 
