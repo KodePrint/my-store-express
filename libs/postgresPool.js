@@ -6,7 +6,7 @@ const options = {};
 if (config.isProd) {
     options.connectionString = config.dbUrl;
     options.dialect = 'postgres',
-    options.ssl = true,
+    options.ssl = false,
     options.dialectOptions = {ssl: {require:true, rejectUnauthorized:false}}
 }
 
