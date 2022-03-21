@@ -6,13 +6,15 @@ const {development, developmentMysql, production} = require('../db/config')
 const options = {
      dialect: 'postges',
      loggin: config.isProd ? false : true,
-}
+};
 
 if (config.isProd) {
-    option.ssl = {
-	rejectUnauthorized: false
-    }
-}
+    option.dialectOptions = {
+	ssl = {
+	    rejectUnauthorized: false
+    	};
+    };
+};
 
 const sequelize = new Sequelize(config.dbUrl, options);
 
