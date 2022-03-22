@@ -1,3 +1,4 @@
+const path = require('path')
 const express = require('express');
 
 const swaggerUI = require('swagger-ui-express');
@@ -16,7 +17,10 @@ const profilesRouter = require('./profilesRouter');
 
 function routerApi(app) {
     const router = express.Router();
-    app.use('/', swaggerUI.serve, swaggerUI.setup(swaggerJsDoc(swaggerSpec)));
+    app.get('/', (request, response) => {
+      response.sendFile(path.resolve(__dirname, '../index.html'))
+    })
+    app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerJsDoc(swaggerSpec)));
     app.use('/api/v1', router)
     router.use('/products', productsRouter);
     router.use('/measure_units', measureUnitRouter);
