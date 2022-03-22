@@ -67,3 +67,86 @@
  *               items:
  *                 $ref: '#/components/schemas/Products'
  * */
+
+
+/** 
+ * @swagger
+ * /api/v1/products/{id}:
+ *   get:
+ *     summary: Return a specific Product
+ *     tags: [Product]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: number
+ *         required: true
+ *         description: This number is the product id
+ *     responses:
+ *       200:
+ *         description: Return all products.!
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               $ref: '#/components/schemas/Products'
+ *       404:
+ *         description: Product with id {id} not exits..!
+ * */
+
+/** @swagger
+ * /api/v1/products/{id}:
+ *   put:
+ *     summary: Update a specific Product
+ *     tags: [Product]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: number
+ *         required: true
+ *         description: This number is the product id
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             $ref: '#/components/schemas/Products'
+ *     responses:
+ *       200:
+ *         description: Return all products.!
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               $ref: '#/components/schemas/Products'
+ *       404:
+ *         description: Product with id {id} not exits..!
+ * */
+
+
+/**
+ * @swagger
+ * /api/v1/products/{id}:
+ *   delete:
+ *     sumary: Delete a specific Product..!
+ *     tags: [Product]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: number
+ *         required: true
+ *         description: This number is the product id
+ *     responses:
+ *       200:
+ *         description: Product with id {id} has been deleted successfull.!
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               $ref: '#/components/schemas/Products'
+ *       404:
+ *         description: Product with id {id} not exits..!
+ * */
