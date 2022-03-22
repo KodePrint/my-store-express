@@ -2,19 +2,7 @@ const express = require('express');
 
 const swaggerUI = require('swagger-ui-express');
 const swaggerJsDoc = require('swagger-jsdoc');
-const swaggerSpec = {
-    definition:  {
-	openapi:"3.0.0",
-	info: {
-	    title: "My Store API",
-	    version: "1.0.0",
-	},
-	servers: [
-	    {url: "https://my-store-kodeprint.herokuapp.com/"},
-	],
-    },
-    apis: ["../*.js"]
-}
+const swaggerSpec = require('../swaggerSpec.js')
 
 const productsRouter = require('./productsRouter');
 const homeRouter = require('./homeRouter');
@@ -28,7 +16,7 @@ const profilesRouter = require('./profilesRouter');
 
 function routerApi(app) {
     const router = express.Router();
-    app.use('/'. swaggerUI.serve, swaggerUI.stup(swaggerJsDoc(swaggerSpec)));
+    app.use('/', swaggerUI.serve, swaggerUI.setup(swaggerJsDoc(swaggerSpec)));
     app.use('/api/v1', router)
     router.use('/products', productsRouter);
     router.use('/measure_units', measureUnitRouter);
