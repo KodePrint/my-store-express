@@ -6,7 +6,7 @@ const { createProductSchema, updateProductSchema, getProductSchema, queryProduct
 const router = express.Router()
 const service = new ProductsService();
 
-// GET
+// Retorna todos los productos
 router.get('/',
   validatorHandler(queryProductSchema, 'query'),
   async (req, res, next) => {
