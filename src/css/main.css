@@ -1,0 +1,28 @@
+:root {
+    --color_1: #f1e3cc;
+    --color_3: #ff4e62;
+    --color_4: #ffb338;
+    --bg_color: #0e242f;
+    --bg_color2: #181717;
+    --bg_color3: #343d5b;
+    /* Fuentes */
+    --chelsea: 'Chelsea Market', cursive;
+    --gaby: 'Gabriela', serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+    scroll-behavior: smooth;
+}
+
+body {
+    background: var(--bg_color3);
+    color: aliceblue;
+    font-size: 1.6rem;
+}
