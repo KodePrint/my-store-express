@@ -27,13 +27,14 @@ body {
     color: aliceblue;
     font-size: 1.6rem;
     font-family: var(--nunito);
+    width: 100vw;
 }
 nav {
     background: var(--onyx_gray);
     color: var(--lavender_white);
     font-weight: 500;
     height: 5rem;
-    width: 100%;
+    width: 100vw;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -96,7 +97,7 @@ nav.openMenu .burguer-btn .line3 {
 nav ul {
     list-style: none;
     position: absolute;
-    width: 100%;
+    width: 100vw;
     height: calc(100vh - 5rem);
     display: flex;
     flex-direction: column;
@@ -133,3 +134,79 @@ nav.openMenu ul {
     transform: translateY(calc(100vh + 5rem));
     opacity: 1;
 }
+
+
+.info {
+    background: var(--gold_crayola);
+    width: 100%;
+    display: flex;
+}
+.info picture {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.info img {
+    max-width: 100%;
+}
+
+.example {
+    display: grid;
+    justify-content: center;
+    width: 100%;
+    grid-template-columns: minmax(min(100%, 102.4rem), 102.4rem);
+}
+.example h2 {
+    color: var(--persian_green);
+    text-align: center;
+    font-size: 2.6rem;
+    font-weight: 800;
+}
+
+.example form {
+    width: 100%;
+}
+.example .formcontrol {
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    justify-content: center;
+    margin: 0 auto;
+    align-items: center;
+}
+.example .formcontrol label {
+    color: var(--onyx_gray_opacity);
+    background: var(--lavender_white);
+    width: 100%;
+    font-size: 1.4rem;
+    height: 2.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top-left-radius: .8rem;
+    border-top-right-radius: .8rem;
+}
+.example .formcontrol input {
+    text-align: center;
+    height: 2.5rem;
+    width: 100%;
+    border: .05rem solid var(--lavender_white);
+    color: var(--onyx_gray_opacity);
+    font-weight: 500;
+    outline: none;
+    padding: 0 1rem;
+}
+
+.example .formcontrol .submit {
+    background: var(--persian_green);
+    height: 2.5rem;
+    border-bottom-left-radius: .8rem;
+    border-bottom-right-radius: .8rem;
+    border: none;
+    color: white;
+    font-family: var(--chelsea);
+}
+
+
+
+
