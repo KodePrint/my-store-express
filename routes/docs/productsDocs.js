@@ -1,37 +1,3 @@
-/**
- * @swagger
- * components:
- *   schemas:
- *     Products:
- *       type: object
- *       properties:
- *         name:
- *           type: string
- *           description: Is the name of product
- *         description:
- *           type: string
- *           description: Describe the more info of the product
- *         image:
- *           type: string
- *           description: Image with view the product
- *         price:
- *           type: number
- *           description: The public price of the product
- *         state:
- *           type: boolean
- *           description: Describe of the product is aviable
- *       required:
- *         - name
- *         - description
- *         - image
- *         - price
- *       example:
- *         name: Kingston Data Travel 3.0 64GB
- *         description: Flashdrive USB 3.0 64GB Kingston white/red model rtx95-64
- *         image: https://static.kemikcdn.com/2017/06/image_39_.png
- *         price: 85.00
- */
-
 // Endpoints
 /** 
  * @swagger
@@ -45,7 +11,7 @@
  *         application/json:
  *           schema:
  *             type: object
- *             $ref: '#/components/schemas/Products'
+ *             $ref: '#/components/schemas/product'
  *     responses:
  *       200:
  *         description: new product created.!
@@ -65,7 +31,7 @@
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/Products'
+ *                 $ref: '#/components/schemas/product'
  * */
 
 
@@ -89,7 +55,7 @@
  *           application/json:
  *             schema:
  *               type: object
- *               $ref: '#/components/schemas/Products'
+ *               $ref: '#/components/schemas/product'
  *       404:
  *         description: Product with id {id} not exits..!
  * */
@@ -112,7 +78,7 @@
  *         application/json:
  *           schema:
  *             type: object
- *             $ref: '#/components/schemas/Products'
+ *             $ref: '#/components/schemas/product'
  *     responses:
  *       200:
  *         description: Return all products.!
@@ -120,7 +86,7 @@
  *           application/json:
  *             schema:
  *               type: object
- *               $ref: '#/components/schemas/Products'
+ *               $ref: '#/components/schemas/product'
  *       404:
  *         description: Product with id {id} not exits..!
  * */
@@ -146,7 +112,7 @@
  *           application/json:
  *             schema:
  *               type: object
- *               $ref: '#/components/schemas/Products'
+ *               $ref: '#/components/schemas/product'
  *       404:
  *         description: Product with id {id} not exits..!
  * */

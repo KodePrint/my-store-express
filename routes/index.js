@@ -2,8 +2,9 @@ const path = require('path')
 const express = require('express');
 
 const swaggerUI = require('swagger-ui-express');
-const swaggerJsDoc = require('swagger-jsdoc');
-const swaggerSpec = require('../swaggerSpec.js')
+// const swaggerJsDoc = require('swagger-jsdoc');
+// const swaggerSpec = require('../swaggerSpec.js')
+const swaggerSetup = require('../docs/swagger')
 
 const productsRouter = require('./productsRouter');
 const homeRouter = require('./homeRouter');
@@ -23,7 +24,7 @@ function routerApi(app) {
     app.get('/', (request, response) => {
       response.sendFile(path.resolve(__dirname, '../index.html'))
     })
-    app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerJsDoc(swaggerSpec)));
+    app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerSetup));
     app.use('/api/v1', router)
     router.use('/products', productsRouter);
     router.use('/measure_units', measureUnitRouter);

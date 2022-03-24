@@ -32,8 +32,7 @@ nav {
     background: var(--onyx_gray);
     color: var(--lavender_white);
     font-weight: 500;
-    padding: 1rem;
-    height: 7rem;
+    height: 5rem;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -49,45 +48,48 @@ nav picture {
     display: flex;
     height: 5rem;
     width: 5rem;
+    padding: .5rem;
 }
 nav .burguer-btn {
     height: 100%;
-    width: 6rem;
+    width: 5.5rem;
     display: flex;
+    padding: .5rem;
     flex-direction: column;
     justify-content: space-around;
     position: relative;
     cursor: pointer;
+    margin-right: .5rem;
 }
 nav .burguer-btn .lines {
     position: absolute;
     content: '';
     background: var(--lavender_white);
-    height: .5rem;
-    width: 6rem;
+    height: .3rem;
+    width: 5rem;
     border-radius: .5rem;
     transition: all .4s ease;
 }
 nav .burguer-btn .line3 {
-    bottom: .5rem
+    bottom: 1rem
 }
 nav .burguer-btn .line1 {
-    top: .5rem
+    top: 1rem
 }
 nav .burguer-btn .line2 {
     top: calc(50% - .25rem)
 }
 nav.openMenu .burguer-btn .line2 {
-    transform: translateX(7rem);
+    transform: translateX(5rem);
     opacity: 0;
 }
 nav.openMenu .burguer-btn .line1 {
-    transform: translateY(1.6rem) rotate(45deg);
+    transform: translateY(1.1rem) rotate(45deg);
     height: .8rem;
     background: var(--copper_red);
 }
 nav.openMenu .burguer-btn .line3 {
-    transform: translateY(-1.6rem) rotate(-45deg);
+    transform: translateY(-1.1rem) rotate(-45deg);
     height: .8rem;
     background: var(--copper_red);
 }
@@ -95,7 +97,7 @@ nav ul {
     list-style: none;
     position: absolute;
     width: 100%;
-    height: calc(100vh - 7rem);
+    height: calc(100vh - 5rem);
     display: flex;
     flex-direction: column;
     justify-content: start;
@@ -128,6 +130,6 @@ nav ul .github {
     margin-top:auto;
 }
 nav.openMenu ul {
-    transform: translateY(calc(100vh + 7rem));
+    transform: translateY(calc(100vh + 5rem));
     opacity: 1;
 }
