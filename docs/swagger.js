@@ -137,12 +137,9 @@ const swaggerDefinition = {
             },
             category: {
                 type: "object",
-                required: ["email", "password"],
+                required: ["description"],
                 properties: {
-                    email: {
-                        type: "string"
-                    },
-                    passwod: {
+                    description: {
                         type: "string"
                     },
                     state: {
@@ -151,8 +148,7 @@ const swaggerDefinition = {
                     },
                 },
                 example: {
-                    email: "admin@my-store.com",
-                    passwod: "admin123*%"   
+                    description: "smartphones"   
                 }
             },
             product: {
