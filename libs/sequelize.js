@@ -8,6 +8,9 @@ const options = {
      loggin: config.isProd ? false : true,
 };
 
+console.log(config.dbDevUrl)
+
+console.log(config.isProd)
 if (config.isProd) {
     options.ssl = false
     options.dialectOptions = {
@@ -18,10 +21,17 @@ if (config.isProd) {
     }
 }
 
-const sequelize = new Sequelize(config.dbUrl, options);
+if (config.isProd) {
+    const sequelize = new Sequelize(config.dbUrl, options);
+    setUpModels(sequelize);
+    module.exports = sequelize;
+} else {
+    const sequelize = new Sequelize(config.dbDevUrl, {dialect: 'mysql', logging: false})
+    setUpModels(sequelize);
+    module.exports = sequelize;
+}
 
-setUpModels(sequelize);
 
 // sequelize.sync();
 
-module.exports = sequelize;
+

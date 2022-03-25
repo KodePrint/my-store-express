@@ -1,5 +1,6 @@
 require('dotenv').config();
 
+
 const config = {
     evn: process.env.NODE_ENV || 'dev',
     isProd: process.env.NODE_ENV === 'production',
@@ -12,6 +13,8 @@ const config = {
     dbName: process.env.DB_NAME,
     dbPort: process.env.DB_PORT,
     dbUrl: process.env.DATABASE_URL,
+    apiKey: process.env.API_KEY,
+    dbDevUrl: `mysql://${process.env.MYSQL_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.MYSQL_PORT}/${process.env.DB_NAME}`
 }
 
 module.exports = {config}

@@ -3,6 +3,7 @@ const cors = require('cors')
 const routerApi = require('./routes')
 const { logErrors, errorHandler, boomErrorHandler, ormErrorHandler, dbOrmErrorHandler } = require('./middlewares/errorHandler')
 const path = require('path')
+const { checkApiKey } = require('./middlewares/authHandler')
 
 // Settings
 const whiteList = ['http://localhost:5500','http://127.0.0.1:5500']
@@ -10,6 +11,7 @@ const whiteList = ['http://localhost:5500','http://127.0.0.1:5500']
 const app = express();
 const port = process.env.PORT || 3000;
 app.use(express.json());
+
 // Cors
 const options = {
  origin: (origin, callback) => {
@@ -24,6 +26,11 @@ app.use(cors());
 
 // Routes
 routerApi(app)
+
+// Test Routes
+app.get('/test', checkApiKey, (req, res) => {
+  res.send('Soy una ruta de prueba')
+})
 
 // Middlewares
 app.use(logErrors);

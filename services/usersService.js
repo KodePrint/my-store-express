@@ -7,7 +7,7 @@ class UsersService {
 
   // Crea un nuevo usuario y lo retorna
   async create(body) {
-    let password_hashed = await bcrypt.hash(body.password, 8)
+    let password_hashed = await bcrypt.hash(body.password, 10)
     body.password = password_hashed
     const newUser = await models.User.create(body);
     if (body.profile) {
@@ -48,6 +48,11 @@ class UsersService {
 
   // Obtiene un usuario por su primarykey, acutaliza sus campos y lo retorna
   async update(id, changes) {
+    if (changes.password) {
+      console.log(changes.password)
+      let password_hashed = await bcrypt.hash(changes.password, 10)
+      changes.password = password_hashed
+    }
     const odlUser = await this.getOne(id);
     const newUser = await odlUser.update(changes);
     return newUser;
