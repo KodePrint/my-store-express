@@ -1,4 +1,6 @@
 const express = require('express');
+const passport = require('passport')
+
 const validatorHandler = require('../middlewares/validatorHandler')
 const {createAddressScheme, updateAddressScheme, getAddressScheme} = require('../schemas/addressSchema')
 const addressService = require('../services/addressService')
@@ -8,26 +10,27 @@ const service = new addressService();
 
 // GET
 router.get('', async (req, res) => {
-    const address = await service.getAll();
-    res.status(200).json(address)
+  const address = await service.getAll();
+  res.status(200).json(address)
 })
 
 // GET a specific user
 router.get('/:id',
   validatorHandler(getAddressScheme, 'params'),
   async (req, res, next) => {
-      try {
-        const {id} = req.params
-        const address = await service.getOne(id)
-        res.status(200).json(address)
-      } catch (error) {
-        next(error)
-      }
+    try {
+      const {id} = req.params
+      const address = await service.getOne(id)
+      res.status(200).json(address)
+    } catch (error) {
+      next(error)
+    }
   }
 )
 
 // POST
 router.post('',
+  passport.authenticate('jwt', {session: false}),
   validatorHandler(createAddressScheme, 'body'),
   async (req, res, next) => {
     try {
@@ -42,6 +45,7 @@ router.post('',
 
 // PATCH
 router.patch('/:id',
+  passport.authenticate('jwt', {session: false}),
   validatorHandler(getAddressScheme, 'params'),
   validatorHandler(updateAddressScheme, 'body'),
   async (req, res, next) => {
@@ -55,8 +59,10 @@ router.patch('/:id',
     }
   }
 )
+
 // PUT
 router.put('/:id',
+  passport.authenticate('jwt', {session: false}),
   validatorHandler(getAddressScheme, 'params'),
   validatorHandler(updateAddressScheme, 'body'),
   async (req, res, next) => {
@@ -70,8 +76,10 @@ router.put('/:id',
     }
   }
 )
+
 // DELETE
 router.delete('/:id',
+  passport.authenticate('jwt', {session: false}),
   validatorHandler(getAddressScheme, 'params'),
   async (req, res, next) => {
     try {

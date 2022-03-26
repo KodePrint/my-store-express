@@ -5,7 +5,7 @@ const { logErrors, errorHandler, boomErrorHandler, ormErrorHandler, dbOrmErrorHa
 const path = require('path')
 const { checkApiKey } = require('./middlewares/authHandler')
 // Estrategias
-const { passport } = require('./utils/auth/index')
+// const { strategies } = require('./utils/auth/index')
 
 // Settings
 const whiteList = ['http://localhost:5500','http://127.0.0.1:5500']
@@ -27,7 +27,7 @@ const options = {
 app.use(cors());
 
 // Se ejecuta la estrategia
-passport;
+require('./utils/auth/index')
 
 // Routes
 routerApi(app)

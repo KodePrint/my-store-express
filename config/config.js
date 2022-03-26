@@ -16,6 +16,7 @@ const config = {
     apiKey: process.env.API_KEY,
     dbDevUrl: `mysql://${process.env.MYSQL_USER}:${process.env.MYSQL_PASSWORD}@${process.env.MYSQL_HOST}:${process.env.MYSQL_PORT}/${process.env.MYSQL_NAME}`,
     secretJwt: process.env.SECRET_JWT,
+    expireJwt: process.env.EXPIRE_JWT,
 }
 
 module.exports = {config}

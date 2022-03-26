@@ -1,4 +1,6 @@
 const express = require('express');
+const passport = require('passport')
+
 const ProductsService = require('../services/productsService')
 const validatorHandler = require('../middlewares/validatorHandler')
 const { createProductSchema, updateProductSchema, getProductSchema, queryProductSchema } = require('../schemas/productSchema')
@@ -34,6 +36,7 @@ router.get('/:id',
 
 // POST
 router.post('/',
+  passport.authenticate('jwt', {session: false}),
   validatorHandler(createProductSchema, 'body'),
   async (req, res, next) => {
     try {
@@ -50,6 +53,7 @@ router.post('/',
 )
 // PATCH
 router.patch('/:id',
+  passport.authenticate('jwt', {session: false}),
   validatorHandler(getProductSchema, 'params'),
   validatorHandler(updateProductSchema, 'body'),
   async (req, res, next) => {
@@ -65,6 +69,7 @@ router.patch('/:id',
 )
 // PUT
 router.put('/:id',
+  passport.authenticate('jwt', {session: false}),
   validatorHandler(getProductSchema, 'params'),
   validatorHandler(updateProductSchema, 'body'),
   async (req, res, next) => {
@@ -79,14 +84,17 @@ router.put('/:id',
   }
 )
 // DELETE
-router.delete('/:id', async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    const product = await service.delete(id);
-    res.status(200).json(product)
-  } catch (error) {
-    next(error)
-  }
+router.delete('/:id',
+  passport.authenticate('jwt', {session: false}),
+  validatorHandler(getProductSchema, 'params'),
+  async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      const product = await service.delete(id);
+      res.status(200).json(product)
+    } catch (error) {
+      next(error)
+    }
 })
 
 module.exports = router

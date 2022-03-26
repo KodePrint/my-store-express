@@ -1,5 +1,8 @@
 const express = require('express');
 const passport = require('passport')
+const jwt = require('jsonwebtoken')
+
+const { config } = require('../config/config')
 
 const router = express.Router()
 
@@ -7,11 +10,18 @@ const router = express.Router()
 router.post('/login',
   passport.authenticate('local', {session: false}),
   async(req, res, next) => {
-      try {
-        res.json(req.user);
-      } catch (error) {
-          next(error)
+    const user = req.user;
+    try {
+      const payload = {
+        sub: user.id,
+        role: user.role,
+        expireIn: config.expireJwt
       }
+      const token = jwt.sign(payload, config.secretJwt);
+      res.json({user, token});
+    } catch (error) {
+        next(error)
+    }
   }
 );
 
