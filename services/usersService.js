@@ -21,7 +21,19 @@ class UsersService {
 
   // Retorna el listado de todos los usuarios de la base de datos
   async getAll() {
-    const users = await models.User.findAll()
+    const users = await models.User.findAll({
+      attributes: ['id', 'email', 'role', 'isActive', 'isAdmin', 'isStaff'],
+      include: [
+        {
+          association: 'profile',
+          attributes: ['name', 'lastName', 'image', 'phone']
+        },
+        {
+          association: 'address',
+          attributes: ["postalCode", "country", "city", "description", "reference"]
+        }
+      ],
+    })
     return users
   }
 

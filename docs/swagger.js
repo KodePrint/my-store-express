@@ -1,9 +1,11 @@
 const path = require('path')
 const swaggerJSDoc = require('swagger-jsdoc')
+// DocSchemes
+const {docUserScheme} = require('./userSwaggerScheme')
+const {docProfileScheme} = require('./profileSwaggerScheme')
+
 
 const documents = path.resolve(__dirname, '../routes/docs/*.js')
-console.log('this route swagger: ' + documents)
-console.log(typeof(documents))
 
 const swaggerDefinition = {
     openapi: "3.0.0",
@@ -14,6 +16,7 @@ const swaggerDefinition = {
     },
     servers: [
         {url: "https://my-store-kodeprint.herokuapp.com/api/v1/"},
+        {url: "http://localhost:3000/api/v1/"},
     ],
     tags: [
         {
@@ -39,32 +42,33 @@ const swaggerDefinition = {
     ],
     components: {
         securitySchemes: {
-            beareAuth: {
+            bearerAuth: {
                 type: "http",
                 scheme: "bearer",
             },
         },
         schemas: {
-            user: {
-                type: "object",
-                required: ["email", "password"],
-                properties: {
-                    email: {
-                        type: "string"
-                    },
-                    password: {
-                        type: "string"
-                    },
-                    state: {
-                        type: "boolean",
-                        default: "true"
-                    },
-                },
-                example: {
-                    email: "admin@my-store.com",
-                    passwod: "admin123*%"   
-                }
-            },
+            user: docUserScheme,
+            // user: {
+            //     type: "object",
+            //     required: ["email", "password"],
+            //     properties: {
+            //         email: {
+            //             type: "string"
+            //         },
+            //         password: {
+            //             type: "string"
+            //         },
+            //         state: {
+            //             type: "boolean",
+            //             default: "true"
+            //         },
+            //     },
+            //     example: {
+            //         email: "admin@my-store.com",
+            //         passwod: "admin123*%"   
+            //     }
+            // },
             profile: {
                 type: "object",
                 required: ["name", "lastName", 'image', 'phone', 'userId'],

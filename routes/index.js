@@ -16,8 +16,6 @@ const indicatorRouter = require('./indicatorRouter');
 const addressRouter = require('./addressRouter');
 const profilesRouter = require('./profilesRouter');
 
-console.log(path.resolve(__dirname, '../src'))
-
 function routerApi(app) {
     const router = express.Router();
     app.use(express.static(path.resolve(__dirname, '../src')))

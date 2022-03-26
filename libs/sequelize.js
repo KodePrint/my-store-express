@@ -4,13 +4,12 @@ const setUpModels = require('../db/models');
 const {development, developmentMysql, production} = require('../db/config')
 
 const options = {
-     dialect: 'postges',
-     loggin: config.isProd ? false : true,
+     dialect: 'postgres',
+     logging: config.isProd ? false : true,
 };
 
-console.log(config.dbDevUrl)
+console.log("Production: " + config.isProd)
 
-console.log(config.isProd)
 if (config.isProd) {
     options.ssl = false
     options.dialectOptions = {
@@ -26,7 +25,15 @@ if (config.isProd) {
     setUpModels(sequelize);
     module.exports = sequelize;
 } else {
-    const sequelize = new Sequelize(config.dbDevUrl, {dialect: 'mysql', logging: false})
+    const USER = encodeURIComponent(config.dbMysqlUser)
+    const PASSWORD = encodeURIComponent(config.dbPassword)
+    const URI = `mysql://${USER}:${PASSWORD}@${config.dbHost}:${config.dbMsqlPort}/${config.dbName}`
+    
+    const sequelize = new Sequelize(URI, {
+        dialect: 'mysql',
+        logging: false,
+    });
+    
     setUpModels(sequelize);
     module.exports = sequelize;
 }

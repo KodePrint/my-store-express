@@ -14,7 +14,7 @@ const config = {
     dbPort: process.env.DB_PORT,
     dbUrl: process.env.DATABASE_URL,
     apiKey: process.env.API_KEY,
-    dbDevUrl: `mysql://${process.env.MYSQL_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.MYSQL_PORT}/${process.env.DB_NAME}`
+    dbDevUrl: `mysql://${process.env.MYSQL_USER}:${process.env.MYSQL_PASSWORD}@${process.env.MYSQL_HOST}:${process.env.MYSQL_PORT}/${process.env.MYSQL_NAME}`
 }
 
 module.exports = {config}
