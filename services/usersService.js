@@ -37,6 +37,15 @@ class UsersService {
     return users
   }
 
+  // Retorna el listado de todos los usuarios de la base de datos
+  async getByEmail(email) {
+    const users = await models.User.findOne({
+      attributes: ['id', 'email', 'password', 'role', 'isActive'],
+      where: {email}
+    });
+    return users
+  }
+
   // Retorna un usuario por su primaryKey
   async getOne(id) {
     const user = await models.User.findByPk(id, {

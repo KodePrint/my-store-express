@@ -15,6 +15,7 @@ const measureUnitRouter = require('./measureUnitRouter');
 const indicatorRouter = require('./indicatorRouter');
 const addressRouter = require('./addressRouter');
 const profilesRouter = require('./profilesRouter');
+const authRouter = require('./authRouter');
 
 function routerApi(app) {
     const router = express.Router();
@@ -32,6 +33,7 @@ function routerApi(app) {
     router.use('/orders', orderRouter);
     router.use('/user-address', addressRouter);
     router.use('/user-profiles', profilesRouter);
+    router.use('/auth', authRouter);
 }
 
 module.exports = routerApi
