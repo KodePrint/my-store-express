@@ -1,6 +1,6 @@
 const docProfileScheme = {
     type: "object",
-        required: ["name", "lastName", "image", "phone", "userId"],
+        required: ["name", "lastName", "image", "phone"],
         properties: {
             id: {
                 type: "number",
@@ -22,9 +22,30 @@ const docProfileScheme = {
                 type: "boolean",
                 default: "false"
             },
-            userId: {
-                type: "number",
-                description: "this is a foreign key with user"
+            user: {
+                type: "object",
+                xml: {
+                  name: "user",
+                  wrapped: true
+                },
+                required: ["email", "password"],
+                properties: {
+                  email: {
+                    type: "string",
+                  },
+                  password: {
+                    type: "string",
+                  },
+                  role: {
+                    type: "string",
+                    default: "customer"
+                  },
+                },
+                example: {
+                  "id": 1,
+                  "email": "supermariobross@gmail.com",
+                  "role": "customer",
+                },
             },
             created: {
                 type: "date",
@@ -36,8 +57,17 @@ const docProfileScheme = {
             },
         },
         example: {
-            email: "admin@my-store.com",
-            password: "admin123*%"   
+          "id": 1,
+          "name": "Mario",
+          "lastName": "Mario",
+          "image": "https://sm.ign.com/t/ign_latam/news/n/nintendo-o/nintendo-officially-partnering-with-illumination-on-mario-mo_pwkn.1200.png",
+          "phone": "+3001 458 127 25",
+          "userId": 1,
+          "user": {
+            "id": 1,
+            "email": "supermariobross@gmail.com",
+            "role": "customer"
+          }
         }
 }
 

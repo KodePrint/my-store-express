@@ -12,7 +12,9 @@ class AddressService {
 
   // Retorna el listado de todas las direcciones de la base de datos
   async getAll() {
-    const address = await models.Address.findAll();
+    const address = await models.Address.findAll({
+      attributes: ['id', 'postalCode', 'country', 'city', 'description', 'reference', 'userId']
+    });
     return address
   }
 

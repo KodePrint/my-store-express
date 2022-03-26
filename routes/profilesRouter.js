@@ -1,6 +1,7 @@
 const express = require('express');
 const validatorHandler = require('../middlewares/validatorHandler')
 const {createProfileScheme, updateProfileScheme, getProfileScheme} = require('../schemas/profileSchema')
+const {createUserScheme, updateUserScheme, getUserScheme} = require('../schemas/userSchema')
 const profileService = require('../services/profilesService')
 
 const router = express.Router();
@@ -29,6 +30,7 @@ router.get('/:id',
 // POST
 router.post('',
   validatorHandler(createProfileScheme, 'body'),
+  validatorHandler(createUserScheme, 'body.user'),
   async (req, res, next) => {
     try {
       const body = req.body;

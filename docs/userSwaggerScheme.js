@@ -37,10 +37,20 @@ const docUserScheme = {
                 default: "timestamp"
             },
             profile: {
-                type: "array"
+                type: "object",
+                xml: {
+                  name: "profile",
+                  wrapped: true
+                },
+                $ref: "#/components/schemas/profile"
             },
             address: {
-                type: "array"
+                type: "array",
+                xml: {
+                  name: "address",
+                  wrapped: true
+                },
+                $ref: "#/components/schemas/address"
             },
         },
         example: {
@@ -63,7 +73,7 @@ const docUserScheme = {
                     "city": "Toad Town",
                     "description": "Mario Bros.' House",
                     "reference": "Chocolat Mountains"
-                }
+                },
             ]
         }
 }

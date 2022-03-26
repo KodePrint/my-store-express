@@ -66,8 +66,12 @@ class UsersService {
       changes.password = password_hashed
     }
     const odlUser = await this.getOne(id);
-    const newUser = await odlUser.update(changes);
-    return newUser;
+    await odlUser.update(changes);
+    const userUpdated = await this.getOne(id);
+    return {
+      message: `User with email: ${userUpdated.email} has ben updated successfull..!`,
+      userUpdated
+    };
   }
 
   // Obtiene un usuario por primaryKey y lo elimina de la base de datos
