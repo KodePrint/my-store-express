@@ -1,7 +1,8 @@
 const {Sequelize} = require('sequelize')
-const {config} = require('../config/config');
+const {config, postgresUrl, mysqlUrl} = require('../config/config');
 const setUpModels = require('../db/models');
 const {development, developmentMysql, production} = require('../db/config')
+
 
 const options = {
      dialect: 'postgres',
@@ -25,12 +26,12 @@ if (config.isProd) {
     setUpModels(sequelize);
     module.exports = sequelize;
 } else {
-    const USER = encodeURIComponent(config.dbMysqlUser)
-    const PASSWORD = encodeURIComponent(config.dbPassword)
-    const URI = `mysql://${USER}:${PASSWORD}@${config.dbHost}:${config.dbMsqlPort}/${config.dbName}`
+    // const USER = encodeURIComponent(config.dbMysqlUser)
+    // const PASSWORD = encodeURIComponent(config.dbPassword)
+    // const URI = `mysql://${USER}:${PASSWORD}@${config.dbHost}:${config.dbMsqlPort}/${config.dbName}`
     
-    const sequelize = new Sequelize(URI, {
-        dialect: 'mysql',
+    const sequelize = new Sequelize(postgresUrl, {
+        dialect: 'postgres',
         logging: false,
     });
     
