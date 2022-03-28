@@ -10,12 +10,16 @@ const options = {
   passwordField: 'password'
 }
 
+// Estrategia Local
 const LocalStrategy = new Strategy(
+  // Opsiones
   options,
   async (email, password, done) => {
     try {
+      // Se obtiene el usuario
       const user = await service.getByEmail(email);
       if (!user) {
+        // Si no existe el usuario se envia el error por boom
         done(boom.unauthorized(), false)
       }
       if (!user.dataValues.isActive) {

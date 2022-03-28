@@ -1,7 +1,7 @@
 // Endpoints
-/** 
+/**
  * @swagger
- * /api/v1/products:
+ * /products:
  *   post:
  *     summary: Create a new product
  *     tags: [Product]
@@ -15,11 +15,15 @@
  *     responses:
  *       200:
  *         description: new product created.!
+ *     security:
+ *          - beareAuth:
+ *            type: 'http'
+ *            scheme: 'bearer'
  * */
 
-/** 
+/**
  * @swagger
- * /api/v1/products:
+ * /products:
  *   get:
  *     summary: Return al products
  *     tags: [Product]
@@ -35,9 +39,9 @@
  * */
 
 
-/** 
+/**
  * @swagger
- * /api/v1/products/{id}:
+ * /products/{id}:
  *   get:
  *     summary: Return a specific Product
  *     tags: [Product]
@@ -61,7 +65,7 @@
  * */
 
 /** @swagger
- * /api/v1/products/{id}:
+ * /products/{id}:
  *   put:
  *     summary: Update a specific Product
  *     tags: [Product]
@@ -94,7 +98,7 @@
 
 /**
  * @swagger
- * /api/v1/products/{id}:
+ * /products/{id}:
  *   delete:
  *     sumary: Delete a specific Product..!
  *     tags: [Product]
