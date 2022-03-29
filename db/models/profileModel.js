@@ -24,7 +24,7 @@ const ProfileSchema = {
     field: 'last_name',
     max: 75,
     set(value) {
-      this.setDataValue('last_name', value.toLowerCase())
+      this.setDataValue('lastName', value.toLowerCase())
     }
   },
   image: {
@@ -35,7 +35,6 @@ const ProfileSchema = {
   phone: {
     allowNull:false,
     type: DataTypes.STRING,
-    unique: true,
     max: 15
   },
   userId: {

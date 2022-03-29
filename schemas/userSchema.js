@@ -25,7 +25,7 @@ const createUserScheme = Joi.object({
 
 const updateUserScheme = Joi.object({
   password: password.required(),
-  role:role.required(),
+  role:role.optional(),
   is_active: is_active.optional(),
   is_staff: is_staff.optional(),
   is_admin: is_admin.optional(),

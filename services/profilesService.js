@@ -1,4 +1,7 @@
 const boom = require('@hapi/boom')
+const bcrypt = require('bcryptjs')
+
+const {  } =require('./usersService')
 
 const { models } = require('../libs/sequelize')
 
@@ -6,8 +9,15 @@ class ProfileService {
 
   // Crea un nuevo perfil y lo retorna
   async create(body) {
-    const profile = await models.Profile.create(body);
-    return profile
+    if (body.user) {
+      let password_hashed = await bcrypt.hash(body.user.password, 10)
+      body.user.password = password_hashed
+    }
+    const newProfile = await models.Profile.create(body, {
+      attributes: ['id', 'name', 'lastName', 'image', 'phone', 'userId'],
+      include: ['user']
+    });
+    return await this.getOne(newProfile.id);
   }
 
   // Retorna el listado de todos los perfiles de la base de datos
@@ -18,7 +28,13 @@ class ProfileService {
 
   // Retorna un perfil por su primaryKey
   async getOne(id) {
-    const profile = await models.Profile.findByPk(id);
+    const profile = await models.Profile.findByPk(id, {
+      attributes: ['id', 'name', 'lastName', 'image', 'phone', 'userId'],
+      include: {
+        association: 'user',
+        attributes: ['id', 'email', 'role']
+      }
+    });
     if (!profile) {
       throw boom.notFound(`Profile with id:${id} not exits..!`);
     };
@@ -27,11 +43,18 @@ class ProfileService {
 
   // Obtiene un perfil por su primarykey, acutaliza sus campos y lo retorna
   async update(id, changes) {
-    const oldProfile = await this.getOne(id, {
-      include: ['user']
-    });
-    const newProfile = await oldProfile.update(changes);
-    return newProfile;
+    if (changes.user) {
+      let password_hashed = await bcrypt.hash(changes.user.password, 10)
+      changes.user.password = password_hashed
+    }
+    const oldProfile = await this.getOne(id);
+    await oldProfile.update(changes);
+    const updateProfile = await this.getOne(id);
+    console.log(updateProfile)
+    return {
+      message: `Profile with email: ${updateProfile.user.email} has ben updated successfull..!`,
+      updateProfile
+    };
   }
 
   // Obtiene un perfil por primaryKey y le cambia el state a falso para descativarlo

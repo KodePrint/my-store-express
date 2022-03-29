@@ -1,0 +1,89 @@
+:root {
+    --text_color: #f1e3cc;
+    --persian_green: #1B998B;
+    --gold_crayola: #EEC481;
+    --copper_red: #D36D4A;
+    --copper_red_opacity: rgba(211, 109, 74, .8);
+    --onyx_gray: #363B44;
+    --onyx_gray_opacity: rgba(54, 59, 68,.8);
+    --lavender_white: #EFE6EA;
+    /* Fuentes */
+    --chelsea: 'Chelsea Market', cursive;
+    --gaby: 'Gabriela', serif;
+    --nunito: 'Nunito', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+    scroll-behavior: smooth;
+}
+
+body {
+    color: aliceblue;
+    font-size: 1.6rem;
+    font-family: var(--nunito);
+}
+nav {
+    padding: 0;
+}
+nav .burguer-btn {
+    display: none;
+}
+nav picture {
+    margin-left: 1rem;
+}
+nav ul {
+    flex-direction: row;
+    position:relative;
+    height: 100%;
+    z-index: inherit;
+    opacity: 1;
+    top: 0;
+    width: auto;
+    margin-right: 1rem;
+}
+nav ul li {
+    height:100%;
+    margin-right: .4rem;
+}
+nav ul li:last-child {
+    margin-right: 0;
+}
+nav ul li a {
+    font-size: 1.6rem;
+    box-shadow: none;
+    height: 100%;
+    display: flex;
+    align-items:center;
+    justify-content: center;
+    position: relative;
+    background: transparent;
+}
+nav ul li a::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    height: .5rem;
+    width: 100%;
+    border-top-right-radius: 1rem;
+    border-top-left-radius: 1rem;
+    background: var(--copper_red);
+    transition: all .6s ease;
+}
+nav ul li a:hover::after {
+    height: 100%;
+    border-top-right-radius: .5rem;
+    border-top-left-radius: .5rem;
+}
+nav ul li a i {
+    z-index: 1;
+}
+nav ul li a span {
+    z-index: 1;
+}

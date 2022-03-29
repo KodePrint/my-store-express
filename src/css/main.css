@@ -1,0 +1,212 @@
+:root {
+    --text_color: #f1e3cc;
+    --persian_green: #1B998B;
+    --gold_crayola: #EEC481;
+    --copper_red: #D36D4A;
+    --onyx_gray: #363B44;
+    --onyx_gray_opacity: rgba(54, 59, 68,.8);
+    --lavender_white: #EFE6EA;
+    /* Fuentes */
+    --chelsea: 'Chelsea Market', cursive;
+    --gaby: 'Gabriela', serif;
+    --nunito: 'Nunito', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+    scroll-behavior: smooth;
+}
+
+body {
+    color: aliceblue;
+    font-size: 1.6rem;
+    font-family: var(--nunito);
+    width: 100vw;
+}
+nav {
+    background: var(--onyx_gray);
+    color: var(--lavender_white);
+    font-weight: 500;
+    height: 5rem;
+    width: 100vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    box-shadow: .1rem .1rem .5rem #000;
+}
+nav a {
+    color: var(--lavender_white);
+    text-decoration:none;
+}
+nav picture {
+    display: flex;
+    height: 5rem;
+    width: 5rem;
+    padding: .5rem;
+}
+nav .burguer-btn {
+    height: 100%;
+    width: 5.5rem;
+    display: flex;
+    padding: .5rem;
+    flex-direction: column;
+    justify-content: space-around;
+    position: relative;
+    cursor: pointer;
+    margin-right: .5rem;
+}
+nav .burguer-btn .lines {
+    position: absolute;
+    content: '';
+    background: var(--lavender_white);
+    height: .3rem;
+    width: 5rem;
+    border-radius: .5rem;
+    transition: all .4s ease;
+}
+nav .burguer-btn .line3 {
+    bottom: 1rem
+}
+nav .burguer-btn .line1 {
+    top: 1rem
+}
+nav .burguer-btn .line2 {
+    top: calc(50% - .25rem)
+}
+nav.openMenu .burguer-btn .line2 {
+    transform: translateX(5rem);
+    opacity: 0;
+}
+nav.openMenu .burguer-btn .line1 {
+    transform: translateY(1.1rem) rotate(45deg);
+    height: .8rem;
+    background: var(--copper_red);
+}
+nav.openMenu .burguer-btn .line3 {
+    transform: translateY(-1.1rem) rotate(-45deg);
+    height: .8rem;
+    background: var(--copper_red);
+}
+nav ul {
+    list-style: none;
+    position: absolute;
+    width: 100vw;
+    height: calc(100vh - 5rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    background: var(--onyx_gray_opacity);
+    left: 0;
+    top: -100vh;
+    opacity: 0.1;
+    z-index: -1;
+    transition: all .5s ease;
+}
+nav ul li {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+nav ul li a {
+    width: 100%;
+    padding: 2rem;
+    box-shadow: .1rem .1rem .5rem rgba(0,0,0,.3);
+    font-weight: 800;
+    text-align: center;
+    font-size: 1.8rem;
+}
+nav ul li a i {
+    margin-right: .5rem;
+    font-size: 2.2rem;
+}
+nav ul .github {
+    margin-top:auto;
+}
+nav.openMenu ul {
+    transform: translateY(calc(100vh + 5rem));
+    opacity: 1;
+}
+
+
+.info {
+    background: var(--gold_crayola);
+    width: 100%;
+    display: flex;
+}
+.info picture {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.info img {
+    max-width: 100%;
+}
+
+.example {
+    display: grid;
+    justify-content: center;
+    width: 100%;
+    grid-template-columns: minmax(min(100%, 102.4rem), 102.4rem);
+}
+.example h2 {
+    color: var(--persian_green);
+    text-align: center;
+    font-size: 2.6rem;
+    font-weight: 800;
+}
+
+.example form {
+    width: 100%;
+}
+.example .formcontrol {
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    justify-content: center;
+    margin: 0 auto;
+    align-items: center;
+}
+.example .formcontrol label {
+    color: var(--onyx_gray_opacity);
+    background: var(--lavender_white);
+    width: 100%;
+    font-size: 1.4rem;
+    height: 2.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top-left-radius: .8rem;
+    border-top-right-radius: .8rem;
+}
+.example .formcontrol input {
+    text-align: center;
+    height: 2.5rem;
+    width: 100%;
+    border: .05rem solid var(--lavender_white);
+    color: var(--onyx_gray_opacity);
+    font-weight: 500;
+    outline: none;
+    padding: 0 1rem;
+}
+
+.example .formcontrol .submit {
+    background: var(--persian_green);
+    height: 2.5rem;
+    border-bottom-left-radius: .8rem;
+    border-bottom-right-radius: .8rem;
+    border: none;
+    color: white;
+    font-family: var(--chelsea);
+}
+
+
+
+

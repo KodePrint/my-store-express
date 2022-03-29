@@ -9,7 +9,7 @@ const productId = Joi.number().integer();
 const amount = Joi.number().integer().min(1);
 
 const createOrderScheme = Joi.object({
-    userId: userId.required()
+    userId: userId.optional()
 })
 
 const updateOrderScheme = Joi.object({

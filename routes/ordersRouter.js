@@ -1,4 +1,6 @@
 const express = require('express');
+const passport = require('passport')
+
 const OrderService = require('../services/orderServices')
 const validatorHandler = require('../middlewares/validatorHandler')
 const { addItemScheme, createOrderScheme, updateOrderScheme, getOrderScheme } = require('../schemas/orderSchema')
@@ -8,9 +10,9 @@ const service = new OrderService();
 
 // GET
 router.get('/', async (req, res) => {
-    const products = await service.getAll();
-    res.status(200).json(products)
-  });
+  const products = await service.getAll();
+  res.status(200).json(products)
+});
 
 router.get('/:id',
   validatorHandler(getOrderScheme, 'params'),
@@ -27,11 +29,13 @@ router.get('/:id',
 
 // POST
 router.post('/',
+  passport.authenticate('jwt', {session: false}),
   validatorHandler(createOrderScheme, 'body'),
   async (req, res, next) => {
     try {
-      const body = req.body;
-      const product = await service.create(body)
+      const user = req.user
+      // const body = req.body;
+      const product = await service.create(user.sub)
       res.status(201).json({
         message: 'created',
         product:product
@@ -43,6 +47,7 @@ router.post('/',
 );
 
 router.post('/add-item',
+  passport.authenticate('jwt', {session: false}),
   validatorHandler(addItemScheme, 'body'),
   async (req, res, next) => {
     try {
@@ -60,6 +65,7 @@ router.post('/add-item',
 
 // PATCH
 router.patch('/:id',
+  passport.authenticate('jwt', {session: false}),
   validatorHandler(getOrderScheme, 'params'),
   validatorHandler(updateOrderScheme, 'body'),
   async (req, res, next) => {
@@ -75,6 +81,7 @@ router.patch('/:id',
 )
 // PUT
 router.put('/:id',
+  passport.authenticate('jwt', {session: false}),
   validatorHandler(getOrderScheme, 'params'),
   validatorHandler(updateOrderScheme, 'body'),
   async (req, res, next) => {
@@ -89,14 +96,17 @@ router.put('/:id',
   }
 )
 // DELETE
-router.delete('/:id', async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    const product = await service.delete(id);
-    res.status(200).json(product)
-  } catch (error) {
-    next(error)
-  }
+router.delete('/:id',
+  passport.authenticate('jwt', {session: false}),
+  validatorHandler(getOrderScheme, 'params'),
+  async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      const product = await service.delete(id);
+      res.status(200).json(product)
+    } catch (error) {
+      next(error)
+    }
 })
 
 module.exports = router

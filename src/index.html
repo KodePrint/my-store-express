@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Store</title>
+    <!-- Font Awesome -->
+    <link href="https://kit-pro.fontawesome.com/releases/v5.15.3/css/pro.min.css" rel="stylesheet">
+    <!-- Fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chelsea+Market&family=Gabriela&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;500;700;800&display=swap" rel="stylesheet">
+    <!-- Styles -->
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/mainTablet.css" media="(min-width: 768px)">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <picture>
+                <image src="https://avatars.githubusercontent.com/u/47469351?s=400&u=d055b137bd00b5d3bce94b9aba4a096fbaaa5ad3&v=4" />
+            </picture>
+            <div class="burguer-btn">
+                <span class="line1 lines"></span>
+                <span class="line2 lines"></span>
+                <span class="line3 lines"></span>
+            </div>
+            <ul>
+                <li>
+                    <a href="">
+                        <i class="fas fa-home-alt"></i>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <i class="fas fa-info-circle"></i>
+                        <span>About</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/docs" target="_blank">
+                        <i class="fas fa-book"></i>
+                        <span>Documentation</span>
+                    </a>
+                </li>
+                <li class="github">
+                    <a href="https://github.com/kapr53/my-store-express" target="_blank">
+                        <i class="fab fa-github"></i>
+                        <span>Github</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="info">
+            <picture>
+                <source media="(min-width: 768px)" srcset="./assets/logos/2.jpg">
+                <img src="./assets/logos/1.png" alt="">
+            </picture>
+        </section>
+        <section class="example">
+            <h2>Try it now!</h2>
+            <form action="">
+                <div class="formcontrol">
+                    <label for="send-input">https://my-store-kodeprint.herokuapp.com/api/v1/</label>
+                    <input type="text" value="products">
+                    <input type="button" value="Submit" class="submit">
+                </div>
+            </form>
+            <div class="options"></div>
+            <div class="response">
+
+            </div>
+        </section>
+    </main>
+    <footer></footer>
+    <script src="./js/main.js"></script>
+</body>
+</html>
