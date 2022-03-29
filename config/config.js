@@ -24,10 +24,10 @@ const config = {
     dbDevUrl: `mysql://${process.env.MYSQL_USER}:${process.env.MYSQL_PASSWORD}@${process.env.MYSQL_HOST}:${process.env.MYSQL_PORT}/${process.env.MYSQL_NAME}`,
     secretJwt: process.env.SECRET_JWT,
     expireJwt: process.env.EXPIRE_JWT,
+    refreshJwt: process.env.REFRESH_JWT,
 }
-
-
 const postgresUrl = `postgres://${config.dbUser}:${config.dbPassword}@${config.dbHost}:${config.dbPort}/${config.dbName}`
 const mysqlUrl = `mysql://${config.dbMysqlUser}:${config.dbPassword}@${config.dbHost}:${config.dbMsqlPort}/${config.dbName}`
+console.log('*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-')
 
 module.exports = {config, postgresUrl, mysqlUrl}

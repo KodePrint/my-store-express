@@ -90,6 +90,7 @@ class OrderService {
     return await this.getOne(newOrder.id);
   }
 
+  // Verifica que el usuario no tenga ordenes activas
   async getOrderUserActive(user){
     const order = await models.Order.findAndCountAll({
       where: {

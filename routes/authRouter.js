@@ -15,7 +15,8 @@ router.post('/login',
       const payload = {
         sub: user.id,
         role: user.role,
-        expireIn: config.expireJwt
+        expireIn: config.expireJwt,
+        iat: new Date().valueOf()
       }
       const token = jwt.sign(payload, config.secretJwt);
       res.json({user, token});
