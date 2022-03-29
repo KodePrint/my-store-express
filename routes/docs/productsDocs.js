@@ -13,7 +13,7 @@
  *             type: object
  *             $ref: '#/components/schemas/product'
  *     responses:
- *       200:
+ *       201:
  *         description: new product created.!
  *     security:
  *          - beareAuth:

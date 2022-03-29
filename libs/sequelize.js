@@ -30,8 +30,8 @@ if (config.isProd) {
     const PASSWORD = encodeURIComponent(config.dbPassword)
     const URI = `mysql://${USER}:${PASSWORD}@${config.dbHost}:${config.dbMsqlPort}/${config.dbName}`
 
-    const sequelize = new Sequelize(mysqlUrl, {
-        dialect: 'mysql',
+    const sequelize = new Sequelize(postgresUrl, {
+        dialect: 'postgres',
         logging: false,
     });
 

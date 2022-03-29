@@ -26,8 +26,6 @@ function checkRoles(...roles) {
   return (req, res, next) => {
 
     const user = req.user;
-    console.log('Rol permision: ' + roles);
-    console.log('User Role: ' + user.role)
     if (!roles.includes(user.role)) {
       next(boom.forbidden('unauthorized, you need administrator permissions..!'));
     }

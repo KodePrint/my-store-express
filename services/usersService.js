@@ -16,7 +16,13 @@ class UsersService {
     if (body.address) {
       const address = await models.Address.create({...body.address, userId: newUser.id})
     }
-    return await this.getOne(newUser.id);
+    return {
+      message: `A new user has been successfully created..!`,
+      User: {
+        id: newUser.id,
+        email: newUser.email
+      }
+    }
   }
 
   // Retorna el listado de todos los usuarios de la base de datos

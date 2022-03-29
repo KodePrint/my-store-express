@@ -15,8 +15,20 @@
  *                      type: "object"
  *                      $ref: "#/components/schemas/user"
  *      responses:
- *          "200":
- *              description: new product created.!
+ *          201:
+ *              description: successful operation
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: "object"
+ *                          example: {
+ *                                   "message":"A new user has been successfully created..!",
+ *                                    "user":{
+ *                                              "id": 1,
+ *                                              "email": "supermariobross@gmail.com"
+ *                                           }
+ *                                     }
+ *                              
  * */
 
 /**
