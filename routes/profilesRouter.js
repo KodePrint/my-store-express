@@ -4,10 +4,25 @@ const passport = require('passport')
 const validatorHandler = require('../middlewares/validatorHandler')
 const {createProfileScheme, updateProfileScheme, getProfileScheme} = require('../schemas/profileSchema')
 const {createUserScheme, updateUserScheme, getUserScheme} = require('../schemas/userSchema')
-const profileService = require('../services/profilesService')
+const profileService = require('../services/profilesService');
+const orderService = require('../services/orderServices')
 
 const router = express.Router();
 const service = new profileService();
+const serviceOrder = new orderService();
+
+// GET
+router.get('/my-orders',
+  passport.authenticate('jwt', {session: false}),
+  async (req, res, next) => {
+  try {
+    const user = req.user
+    const orders = await serviceOrder.finbyUser(user.sub)
+    res.status(200).json(orders)
+  } catch (error) {
+    next(error)
+  };
+})
 
 // GET
 router.get('', async (req, res) => {

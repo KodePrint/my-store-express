@@ -26,6 +26,7 @@ const config = {
     expireJwt: process.env.EXPIRE_JWT,
 }
 
+
 const postgresUrl = `postgres://${config.dbUser}:${config.dbPassword}@${config.dbHost}:${config.dbPort}/${config.dbName}`
 const mysqlUrl = `mysql://${config.dbMysqlUser}:${config.dbPassword}@${config.dbHost}:${config.dbMsqlPort}/${config.dbName}`
 

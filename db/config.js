@@ -1,15 +1,16 @@
-const { config, postgresUrl } = require('./../config/config');
+const { config, postgresUrl, mysqlUrl } = require('./../config/config');
 
 const USER = encodeURIComponent(config.dbMysqlUser)
 const PASSWORD = encodeURIComponent(config.dbPassword)
 const URI = `mysql://${USER}:${PASSWORD}@${config.dbHost}:${config.dbMsqlPort}/${config.dbName}`
 
-console.log(postgresUrl)
+console.log(config.dbPassword)
+console.log(mysqlUrl)
 
 module.exports = {
   development: {
-    url: postgresUrl,
-    dialect: 'postgres'
+    url: mysqlUrl,
+    dialect: 'mysql'
   },
   production: {
     url: config.dbUrl,

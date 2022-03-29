@@ -33,8 +33,9 @@ router.post('/',
   validatorHandler(createOrderScheme, 'body'),
   async (req, res, next) => {
     try {
-      const body = req.body;
-      const product = await service.create(body)
+      const user = req.user
+      // const body = req.body;
+      const product = await service.create(user.sub)
       res.status(201).json({
         message: 'created',
         product:product

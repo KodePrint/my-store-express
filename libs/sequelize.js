@@ -26,15 +26,15 @@ if (config.isProd) {
     setUpModels(sequelize);
     module.exports = sequelize;
 } else {
-    // const USER = encodeURIComponent(config.dbMysqlUser)
-    // const PASSWORD = encodeURIComponent(config.dbPassword)
-    // const URI = `mysql://${USER}:${PASSWORD}@${config.dbHost}:${config.dbMsqlPort}/${config.dbName}`
-    
-    const sequelize = new Sequelize(postgresUrl, {
-        dialect: 'postgres',
+    const USER = encodeURIComponent(config.dbMysqlUser)
+    const PASSWORD = encodeURIComponent(config.dbPassword)
+    const URI = `mysql://${USER}:${PASSWORD}@${config.dbHost}:${config.dbMsqlPort}/${config.dbName}`
+
+    const sequelize = new Sequelize(mysqlUrl, {
+        dialect: 'mysql',
         logging: false,
     });
-    
+
     setUpModels(sequelize);
     module.exports = sequelize;
 }

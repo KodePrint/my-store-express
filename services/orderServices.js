@@ -5,13 +5,47 @@ const { models } = require('../libs/sequelize')
 
 class OrderService {
 
-  // Retorna todas las ordenes
+  // Retorna todas las Ordenes
   async getAll() {
     const orders = await models.Order.findAll();
     return orders;
   }
 
-  // Retorna una categoria por pk
+  // Busca por usuario
+  async finbyUser(userId) {
+    const orders = await models.Order.findAll({
+      where: {
+        user_id: userId
+      },
+      attributes: ['id', 'created', 'state', 'total'],
+      include: [
+
+        // User Data
+        {
+          attributes: ['email'],
+          association: 'user',
+          include: [
+            {
+              attributes: ['name', 'last_name', 'image', 'phone'],
+              association: 'profile'
+            },
+            {
+              attributes: ['postalCode', 'country', 'city', 'description', 'reference'],
+              association: 'address'
+            },
+          ]
+        },
+        // Items List
+        {
+          attributes: ['name', 'description', 'price'],
+          association: 'items',
+        }
+      ]
+    })
+    return orders
+  }
+
+  // Retorna una Order por pk
   async getOne(id) {
     const order = await models.Order.findByPk(id, {
       attributes: ['id', 'created', 'state', 'total'],
@@ -45,18 +79,25 @@ class OrderService {
     return order;
   }
 
-  // Crea una categoria y la retorna
-  async create(body) {
+  // Crea una Order y la retorna
+  async create(user) {
+    const body = {userId: user};
+    if (await this.getOrderUserActive(user) !== 0) {
+      throw boom.conflict('This user have a order pending..!')
+    }
+    console.log(body)
     const newOrder = await models.Order.create(body)
     return await this.getOne(newOrder.id);
   }
 
-  async getOrderUserActive(query){
-    const options = {
-      attributes: ['id', 'created', 'state', 'total'],
-      where: {}
-    }
-    const {user} = query
+  async getOrderUserActive(user){
+    const order = await models.Order.findAndCountAll({
+      where: {
+        user_id: user,
+        state: 0
+      }
+    })
+    return order.count
   }
 
   // Crea un nuevo Item para la orden y la retorna
@@ -65,7 +106,7 @@ class OrderService {
     return await this.getOne(newItem.id);
   }
 
-  // Actualiza una categoria y la retorna
+  // Actualiza una Order y la retorna
   async update(id, changes) {
     const order = await this.getOne(id);
     const updateOrder = await order.update(changes);
@@ -81,7 +122,7 @@ class OrderService {
     };
   }
 
-  // Elimina una categoria de la base de datos
+  // Elimina una Order de la base de datos
   async delete(id) {
     const order = await this.getOne(id, {
       include: ['user']
