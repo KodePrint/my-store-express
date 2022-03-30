@@ -36,6 +36,9 @@ routerApi(app)
 app.get('/test', checkApiKey, (req, res) => {
   res.send('Soy una ruta de prueba')
 })
+app.get('/recovery', (req, res) => {
+  res.send('Formulario de recuperacion..!')
+})
 
 // Middlewares
 app.use(logErrors);

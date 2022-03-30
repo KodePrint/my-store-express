@@ -13,13 +13,9 @@ const service = new AuthService();
 router.post('/login',
   passport.authenticate('local', {session: false}),
   async(req, res, next) => {
-    const user = req.user;
     try {
-      const tokensInfo = await service.createTokens(user)
-      res.json({user, 
-        accesToken: tokensInfo.token,
-        refreshToken: tokensInfo.refreshToken
-      })
+      const user = req.user;
+      res.status(200).json(service.singToken(user))
     } catch (error) {
         next(error)
     }
@@ -30,6 +26,20 @@ router.post('/recovery',
   async (req, res, next) => {
     try {
       const { email } = req.body
+      const rta = await service.sendRecovery(email)
+      res.status(200).json(rta)
+    } catch (error) {
+      next(error)
+    }
+  }
+)
+
+router.post('/change-password',
+  async (req, res, next) => {
+    try {
+      const { token, newPassword } = req.body;
+      const changes = await service.changePassword(token, newPassword)
+      res.status(200).json(changes)
     } catch (error) {
       next(error)
     }

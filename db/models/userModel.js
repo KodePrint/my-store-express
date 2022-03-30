@@ -22,6 +22,16 @@ const UserSchema = {
     type: DataTypes.STRING,
     min: 6
   },
+  recoveryToken: {
+    allowNull: true,
+    type: DataTypes.STRING,
+    field: 'recovery_token'
+  },
+  refreshToken: {
+    allowNull: true,
+    type: DataTypes.STRING,
+    field: 'refresh_token'
+  },
   role: {
     allowNull: false,
     type: DataTypes.STRING,
