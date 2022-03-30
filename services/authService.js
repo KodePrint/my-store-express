@@ -2,12 +2,32 @@ const express = require('express');
 const passport = require('passport')
 const jwt = require('jsonwebtoken')
 const boom = require('@hapi/boom')
+const bcrypt = require('bcryptjs')
 
+
+const UserService = require('./usersService');
 const { config } = require('../config/config');
-const { boomify } = require('@hapi/boom');
 
+const service = new UserService()
 
 class AuthService {
+
+  async getUser(email, password) {
+    const user = await service.getByEmail(email);
+    if (!user) {
+      // Si no existe el usuario se envia el error por boom
+      throw boom.unauthorized();
+    }
+    if (!user.dataValues.isActive) {
+      throw boom.forbidden();
+    }
+    const isMatch = await bcrypt.compare(password, user.password)
+    if (!isMatch) {
+      throw boom.unauthorized();
+    }
+    delete user.dataValues.password;
+    return user;
+  }
 
   async createTokens(user) {
     const payload = {

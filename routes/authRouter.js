@@ -26,6 +26,16 @@ router.post('/login',
   }
 );
 
+router.post('/recovery',
+  async (req, res, next) => {
+    try {
+      const { email } = req.body
+    } catch (error) {
+      next(error)
+    }
+  }
+)
+
 router.post('/refresh-token',
   async (req, res, next) => {
     // Obtenemos el token del header pero lo ideal seria que se guardase en la base de datos

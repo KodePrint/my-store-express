@@ -26,6 +26,10 @@ const config = {
     expireJwt: process.env.EXPIRE_JWT,
     refreshJwt: process.env.REFRESH_JWT,
     expireJwtRefresh: process.env.EXPIRE_REFRESH_JWT,
+
+    // Send email configuration
+    email_backend: process.env.EMAIL_SEND,
+    gmail_pass: process.env.PASSWORD_GMAIL_API,
 }
 const postgresUrl = `postgres://${config.dbUser}:${config.dbPassword}@${config.dbHost}:${config.dbPort}/${config.dbName}`
 const mysqlUrl = `mysql://${config.dbMysqlUser}:${config.dbPassword}@${config.dbHost}:${config.dbMsqlPort}/${config.dbName}`

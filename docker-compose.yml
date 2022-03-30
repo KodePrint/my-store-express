@@ -23,10 +23,10 @@ services:
   mysql:
     image: mysql:5
     environment:
-      - MYSQL_DATABASE=${MYSQL_NAME}
+      - MYSQL_DATABASE=${DB_NAME}
       - MYSQL_USER=${MYSQL_USER}
       - MYSQL_PASSWORD='abc123/-'
-      - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
       - MYSQL_PORT=${MYSQL_PORT}
     ports:
       - ${MYSQL_PORT}:${MYSQL_PORT}
@@ -36,7 +36,7 @@ services:
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     environment:
-      - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
       - PMA_HOST=mysql
     ports:
       - 8080:80

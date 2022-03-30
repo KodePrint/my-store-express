@@ -3,8 +3,9 @@ const boom = require('@hapi/boom')
 const bcrypt = require('bcryptjs')
 
 
-const UsersService = require('../../../services/usersService')
-const service = new UsersService()
+const AuthService = require('../../../services/authService')
+const service = new AuthService()
+
 const options = {
   usernameField: 'email',
   passwordField: 'password'
@@ -17,19 +18,7 @@ const LocalStrategy = new Strategy(
   async (email, password, done) => {
     try {
       // Se obtiene el usuario
-      const user = await service.getByEmail(email);
-      if (!user) {
-        // Si no existe el usuario se envia el error por boom
-        done(boom.unauthorized(), false)
-      }
-      if (!user.dataValues.isActive) {
-        done(boom.forbidden(), false);
-      }
-      const isMatch = await bcrypt.compare(password, user.password)
-      if (!isMatch) {
-        done(boom.unauthorized(), false)
-      }
-      delete user.dataValues.password;
+      const user = await service.getUser(email, password);
       done(null, user);
     } catch (error) {
       done(error, false);
