@@ -14,10 +14,16 @@ const service = new UsersService();
 router.get('/',
   passport.authenticate('jwt', {session: false}),
   checkRoles('admin',),
-  async (req, res) => {
-    const users = await service.getAll();
-    res.status(200).json(users)
-})
+    async (req, res, next) => {
+      try {
+        const users = await service.getAll();
+        res.status(200).json(users) 
+      } catch (error) {
+        console.log(error)
+        next(error)
+      }
+  }
+)
 
 // GET a specific user
 router.get('/:id',

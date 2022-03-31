@@ -13,18 +13,8 @@ function checkApiKey(req, res, next) {
   }
 }
 
-function checkAdminRole(req, res, next) {
-  console.log(req.user)
-  const user = req.user;
-  if (user.role != 'admin') {
-    next(boom.forbidden('unauthorized, you need administrator permissions..!'))
-  }
-  next()
-}
-
 function checkRoles(...roles) {
   return (req, res, next) => {
-
     const user = req.user;
     if (!roles.includes(user.role)) {
       next(boom.forbidden('unauthorized, you need administrator permissions..!'));
@@ -33,4 +23,4 @@ function checkRoles(...roles) {
   }
 }
 
-module.exports = {checkApiKey, checkAdminRole, checkRoles}
+module.exports = {checkApiKey, checkRoles}

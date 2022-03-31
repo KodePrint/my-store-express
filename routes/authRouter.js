@@ -15,7 +15,8 @@ router.post('/login',
   async(req, res, next) => {
     try {
       const user = req.user;
-      res.status(200).json(service.singToken(user))
+      const loginInfo = await service.singTokens(user)
+      res.status(200).json(loginInfo)
     } catch (error) {
         next(error)
     }
@@ -54,10 +55,23 @@ router.post('/refresh-token',
       throw boom.badRequest()
     }
     try {
-      const newToken = await service.refreshToken(refreshToken)
-      res.status(201).json(newToken)
+      const response = await service.refreshToken(refreshToken)
+      res.status(201).json(response)
     } catch (error) {
       next(error)
+    }
+  }
+)
+
+router.post('/logout',
+  passport.authenticate('jwt', {session: false}),
+  async (req, res, next) => {
+    try {
+      const user = req.user;
+      const response = await service.logout(user)
+      res.status(200).json(response)
+    } catch (error) {
+      next(error);
     }
   }
 )

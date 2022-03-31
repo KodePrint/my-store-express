@@ -24,8 +24,9 @@ const config = {
     dbDevUrl: `mysql://${process.env.MYSQL_USER}:${process.env.MYSQL_PASSWORD}@${process.env.MYSQL_HOST}:${process.env.MYSQL_PORT}/${process.env.MYSQL_NAME}`,
     secretJwt: process.env.SECRET_JWT,
     expireJwt: process.env.EXPIRE_JWT,
-    refreshJwt: process.env.REFRESH_JWT,
+    secretRefreshJwt: process.env.REFRESH_JWT,
     expireJwtRefresh: process.env.EXPIRE_REFRESH_JWT,
+    secretRecoveryhJwt: process.env.REFRESH_JWT,
 
     // Send email configuration
     email_backend: process.env.EMAIL_SEND,

@@ -31,17 +31,37 @@ class AuthService {
     return user;
   }
 
-  // Crea un token para el usuario logueado
-  singToken(user) {
+  // Sing a Access Token
+  singAccessToken(user) {
     const payload = {
       sub: user.id,
       role: user.role,
     }
-    const token = jwt.sign(payload, config.secretJwt)
-    return {
-      user, 
-      token
+    const token = jwt.sign(payload, config.secretJwt, {expiresIn: config.expireJwt}) 
+    return token
+  }
+
+  // Sing a Refresh Token
+  async singRefreshToken(user) {
+    const payload = {
+      sub: user.id,
+      email: user.email,
+      isActive: user.isActive,
     }
+    const token = jwt.sign(payload, config.secretRefreshJwt, {expiresIn: config.expireJwtRefresh});
+    await service.update(user.id, {refreshToken: token})
+    return token
+  }
+
+  // Sing a Access Token
+  async singTokens(user) { 
+      const accessToken = this.singAccessToken(user);
+      const refreshToken = await this.singRefreshToken(user);
+      return {
+        user,
+        accessToken,
+        refreshToken
+      }
   }
 
   // Envia un correo de con token para cambio de password
@@ -56,7 +76,7 @@ class AuthService {
       throw boom.forbidden();
     }
     const payload = {sub: user.id}
-    const token = jwt.sign(payload, config.secretJwt, {expiresIn: '10min'})
+    const token = jwt.sign(payload, config.secretRecoveryhJwt, {expiresIn: '10min'})
     let link = ''
     if (config.isProd) {
       link = `http://myfrontend.com/recovery?token=${token}`
@@ -78,10 +98,9 @@ class AuthService {
   async changePassword(token, newPassword) {
     try {
       const payload = jwt.verify(token, config.secretJwt)
-      console.log(payload)
       const user = await service.getOne(payload.sub)
       if (user.recoveryToken !== token) {
-        throw boom.unauthorized('The token is no equal')
+        throw boom.unauthorized()
       }
       const hashPass = await bcrypt.hash(newPassword, 10);
       await service.update(user.id, {recoveryToken: null, password: hashPass})
@@ -110,6 +129,11 @@ class AuthService {
     return { message: 'mail sent..!'}
   }
 
+  async logout(user) {
+    await service.update(user.id, {recoveryToken: null, refreshToken: null})
+    return {message: 'Se ha deslogeado correctamente..!'}
+  }
+
   async createTokens(user) {
     const payload = {
       sub: user.id,
@@ -121,19 +145,16 @@ class AuthService {
   }
 
   async refreshToken(refreshToken) {
-    if (!refreshToken) {
-      throw boom.forbidden('Se a desconectado de la sesion, Inicie sesion nuevamente..!')
+    const payload = jwt.verify(refreshToken, config.secretRefreshJwt)
+    const user = await service.getOne(payload.sub)
+    if (user.refreshToken !== refreshToken) {
+      throw boom.forbidden()
     }
-    const verifyResult = jwt.verify(refreshToken, config.refreshJwt);
-    if (new Date().getDate() > (verifyResult.exp * 1000)) {
-      throw boom.forbidden('Se a desconectado de la sesion, Inicie sesion nuevamente..!')
+    const accessToken = this.singAccessToken(user)
+    return {
+      message: 'New acces Token has been created',
+      accessToken
     }
-    const payload = {
-      sub: verifyResult.sub,
-      role: verifyResult.role,
-    }
-    const token = jwt.sign(payload, config.secretJwt, {expiresIn: config.expireJwt});
-    return {accesToken: token}
   }
 }
 

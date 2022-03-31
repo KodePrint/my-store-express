@@ -28,7 +28,7 @@ class UsersService {
   // Retorna el listado de todos los usuarios de la base de datos
   async getAll() {
     const users = await models.User.findAll({
-      attributes: ['id', 'email', 'role', 'isActive', 'isAdmin', 'isStaff', 'recoveryToken'],
+      attributes: ['id', 'email', 'role', 'isActive', 'isAdmin', 'isStaff'],
       include: [
         {
           association: 'profile',
@@ -55,7 +55,7 @@ class UsersService {
   // Retorna un usuario por su primaryKey
   async getOne(id) {
     const user = await models.User.findByPk(id, {
-      attributes: ['id', 'email', 'role', 'isActive', 'isAdmin', 'isStaff', 'recoveryToken'],
+      attributes: ['id', 'email', 'role', 'isActive', 'isAdmin', 'isStaff', 'recoveryToken', 'refreshToken'],
       include: [
         {
           association: 'profile',
