@@ -1,5 +1,8 @@
 'use strict';
 
+const bcrypt = require('bcryptjs')
+const {config} = require('../../config/config')
+
 const {USER_TABLE, UserSchema}  = require('../models/userModel');
 const {PROFILE_TABLE, ProfileSchema}  = require('../models/profileModel');
 const {ADDRESS_TABLE, AddressSchema}  = require('../models/addressModel');
@@ -22,7 +25,17 @@ module.exports = {
     await queryInterface.createTable(PRODUCT_TABLE, ProductSchema);
     await queryInterface.createTable(ORDER_TABLE, OrderSchema);
     await queryInterface.createTable(ORDER_PRODUCT_TABLE, OrderProductSchema);
-
+    const hashPass = await bcrypt.hash(config.password_admin, 10);
+    await queryInterface.bulkInsert(USER_TABLE, [
+      {
+        email: config.email_admin,
+        password: hashPass,
+        role: 'admin',
+        is_active: true,
+        is_admin: true,
+        is_staff: true,                
+      }
+    ]);
   },
 
   async down (queryInterface, Sequelize) {

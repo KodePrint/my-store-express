@@ -31,9 +31,12 @@ const config = {
     // Send email configuration
     email_backend: process.env.EMAIL_SEND,
     gmail_pass: process.env.PASSWORD_GMAIL_API,
+
+    // ADMIN USER
+    email_admin: process.env.EMAIL_ADMIN,
+    password_admin: process.env.PASS_ADMIN,
 }
 const postgresUrl = `postgres://${config.dbUser}:${config.dbPassword}@${config.dbHost}:${config.dbPort}/${config.dbName}`
 const mysqlUrl = `mysql://${config.dbMysqlUser}:${config.dbPassword}@${config.dbHost}:${config.dbMsqlPort}/${config.dbName}`
 console.log('*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-')
-
 module.exports = {config, postgresUrl, mysqlUrl}
